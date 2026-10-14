@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LEGENDCOG</title>
+<meta name="description" content="LEGENDCOG（レジェンドコグ）公式サイト。宇宙のカードバトル『SIDERA VEIL』、島ぐらしシム『ひだまり島ぐらし』、3DRPG『第13灯』を制作するインディーゲームスタジオ。">
+
+<!-- ▼▼ 公開ドメインが決まったら、下の https://legendcog.example を実際のドメインに置き換えてください ▼▼ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LEGENDCOG">
+<meta property="og:title" content="LEGENDCOG — Independent Game Studio">
+<meta property="og:description" content="宇宙のカードバトル・島ぐらしシム・3DRPGを手がけるインディーゲームスタジオ。伝説は、ここで組み上がる。">
+<meta property="og:url" content="https://legendcog.com/">
+<meta property="og:image" content="https://legendcog.com/assets/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LEGENDCOG — Independent Game Studio">
+<meta name="twitter:description" content="宇宙のカードバトル・島ぐらしシム・3DRPGを手がけるインディーゲームスタジオ。伝説は、ここで組み上がる。">
+<meta name="twitter:image" content="https://legendcog.com/assets/ogp.png">
+<!-- ▲▲ ここまで ▲▲ -->
+
+<meta name="theme-color" content="#07080e">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@700;900&display=swap">
+<style>
+/* ──────────────────────────────────────────────────────────────
+   LEGENDCOG — インディーゲームスタジオ公式サイト
+   レイアウト：固定スリムナビ（言語切替つき）→ シネマティックなヒーロー
+   （回転する「星座の歯車」）→ 作品ごとに色の世界を持つ3つのショーケース
+   → スタジオの哲学 → ニュース → 連絡先。暗く重厚な一枚絵の世界に
+   コミットした単一テーマ。日本語／英語を切り替え可能。
+   ────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme: dark;
+  --bg:#07080e; --bg-2:#0d0f1a; --bg-3:#141628;
+  --fg:#edeaf6; --muted:#9a98b4; --faint:#6a6884;
+  --line:rgba(190,180,230,.14);
+  --gold:#ecbf6e; --gold-soft:#f5dca4;
+  --stella:#b79bff; --stella-2:#ecc877;
+  --hidamari:#7ad59c; --hidamari-2:#ffb6cd;
+  --tou:#e86a33;
+  --disp:"Cinzel",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+  --round:"Zen Maru Gothic","Zen Kaku Gothic New",sans-serif;
+  --maxw:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:400;line-height:1.75;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.1}
+::selection{background:rgba(236,191,110,.3);color:#fff}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(18px,5vw,56px)}
+.eyebrow{font-family:var(--disp);font-weight:600;letter-spacing:.42em;text-transform:uppercase;
+  font-size:clamp(11px,1.5vw,13px);color:var(--gold);margin:0}
+
+/* 星空 */
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:.5;animation:tw 4s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.15}50%{opacity:.75}}
+
+/* ナビ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);
+  background:linear-gradient(to bottom,rgba(7,8,14,.92),rgba(7,8,14,.55) 70%,transparent);
+  backdrop-filter:blur(8px);transition:background .3s}
+.nav.solid{background:rgba(7,8,14,.9);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:14px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:800;letter-spacing:.14em;font-size:17px;flex:none}
+.brand svg{width:26px;height:26px;flex:none;color:var(--gold)}
+.brand .cog-word{color:var(--gold-soft)}
+.nav-right{display:flex;align-items:center;gap:clamp(10px,2vw,22px)}
+.menu{display:flex;align-items:center;gap:clamp(14px,2.4vw,32px)}
+.menu a{font-size:13.5px;font-weight:500;letter-spacing:.08em;color:var(--muted);transition:color .2s}
+.menu a span{font-family:var(--disp);font-size:11px;letter-spacing:.2em;color:var(--faint);margin-right:7px}
+.menu a:hover{color:var(--fg)}
+.menu .n-cta{padding:9px 18px;border:1px solid var(--line);border-radius:999px;color:var(--fg);background:rgba(236,191,110,.06)}
+.menu .n-cta:hover{border-color:var(--gold);background:rgba(236,191,110,.14)}
+.lang-btn{font-family:var(--disp);font-size:12px;letter-spacing:.12em;color:var(--gold);
+  background:rgba(236,191,110,.08);border:1px solid var(--line);border-radius:999px;
+  padding:8px 14px;cursor:pointer;transition:.2s;min-width:58px}
+.lang-btn:hover{border-color:var(--gold);color:var(--gold-soft)}
+.burger{display:none;background:none;border:0;color:var(--fg);padding:8px;cursor:pointer}
+.burger svg{width:24px;height:24px}
+
+/* ヒーロー */
+.hero{position:relative;z-index:1;display:flex;align-items:center;min-height:clamp(620px,92svh,860px);padding-block:120px 64px;overflow:hidden}
+.hero-glow{position:absolute;z-index:0;left:50%;top:44%;transform:translate(-50%,-50%);width:min(1300px,140vw);aspect-ratio:1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 50% 50%,rgba(236,191,110,.16),rgba(141,124,255,.1) 34%,transparent 62%)}
+.hero-gear{position:absolute;z-index:0;left:50%;top:44%;transform:translate(-50%,-50%);width:min(980px,128vw);height:min(980px,128vw);color:var(--gold);opacity:.3;pointer-events:none;
+  animation:spin 92s linear infinite;filter:drop-shadow(0 0 30px rgba(236,191,110,.25))}
+.hero-gear.inner{width:min(520px,70vw);height:min(520px,70vw);color:var(--stella);opacity:.26;animation:spin 60s linear infinite reverse}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hero-in{position:relative;z-index:2;width:100%}
+.hero h1{font-family:var(--disp);font-weight:900;letter-spacing:.03em;font-size:clamp(36px,11.2vw,150px);line-height:.92;margin:.18em 0 .1em;
+  background:linear-gradient(180deg,#fff 10%,var(--gold-soft) 58%,#b98a3e 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 40px rgba(236,191,110,.28))}
+.hero .tag{font-family:var(--round);font-weight:900;font-size:clamp(20px,4.6vw,38px);letter-spacing:.04em;margin:.2em 0 .35em;color:#fff}
+.hero .tag b{color:var(--gold-soft)}
+.hero .sub{max-width:62ch;color:var(--muted);font-size:clamp(14px,2.1vw,16.5px);margin:0 0 34px}
+.hero .sub b{color:var(--fg);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:12px}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:10px 16px 10px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:13px;font-weight:500;transition:transform .2s,border-color .2s,background .2s}
+.chip:hover{transform:translateY(-2px);border-color:var(--c,var(--gold));background:rgba(255,255,255,.06)}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--c,var(--gold));box-shadow:0 0 10px var(--c,var(--gold))}
+.chip .st{font-family:var(--disp);font-size:10px;letter-spacing:.14em;color:var(--faint);padding-left:9px;border-left:1px solid var(--line)}
+.scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;font-family:var(--disp);font-size:10px;letter-spacing:.34em;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scrollcue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.2;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+/* セクション共通 */
+section{position:relative;z-index:1}
+.band{padding-block:clamp(72px,11vw,128px)}
+.sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:clamp(40px,6vw,64px)}
+.sec-head h2{font-family:var(--disp);font-weight:800;letter-spacing:.04em;font-size:clamp(30px,6vw,64px)}
+.sec-head h2 em{font-style:normal;color:var(--gold-soft)}
+.sec-head .k{color:var(--muted);max-width:60ch;font-size:15px}
+
+/* 作品 */
+.works{display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)}
+.work{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(22px,3vw,48px);align-items:stretch;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--bg-2);transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s}
+.work:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 55%,var(--line));box-shadow:0 26px 60px -30px color-mix(in srgb,var(--c) 70%,transparent)}
+.work.flip{grid-template-columns:.95fr 1.05fr}
+.work.flip .w-art{order:2}
+.w-art{position:relative;min-height:300px;height:100%;overflow:hidden}
+.w-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,var(--bg-2));opacity:.9}
+.work.flip .w-art::after{background:linear-gradient(270deg,transparent 55%,var(--bg-2))}
+.w-art img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.work:hover .w-art img{transform:scale(1.05)}
+.w-body{padding:clamp(26px,3.4vw,46px) clamp(24px,3vw,30px);min-width:0;display:flex;flex-direction:column;justify-content:center}
+.w-tags{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px}
+.badge{font-family:var(--disp);font-size:10.5px;letter-spacing:.16em;padding:5px 12px;border-radius:999px;border:1px solid var(--c);color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent)}
+.badge.live{color:#06120b;background:var(--c);border-color:var(--c);font-weight:700}
+.genre{font-size:12px;letter-spacing:.1em;color:var(--muted)}
+.w-body h3{font-size:clamp(26px,4.4vw,42px);letter-spacing:.02em;margin-bottom:4px}
+.w-body .rom{font-family:var(--disp);font-size:12px;letter-spacing:.3em;color:var(--faint);margin-bottom:14px}
+.w-body p{color:var(--muted);font-size:14.5px;margin:0 0 22px;max-width:48ch}
+.w-meta{display:flex;flex-wrap:wrap;gap:18px;margin:0 0 24px;padding-top:18px;border-top:1px solid var(--line)}
+.w-meta .lab{font-family:var(--disp);font-size:9.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase}
+.w-meta .val{font-size:13.5px;color:var(--fg);font-weight:500}
+.w-cta{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14px;padding:13px 24px;border-radius:999px;background:var(--c);color:#0a0a12;transition:transform .2s,filter .2s;letter-spacing:.03em;width:fit-content}
+.w-cta:hover{transform:translateX(3px);filter:brightness(1.08)}
+.w-cta.ghost{background:transparent;border:1px solid var(--c);color:var(--c)}
+.w-cta.ghost:hover{background:color-mix(in srgb,var(--c) 14%,transparent)}
+.w-cta svg{width:16px;height:16px}
+
+/* ひだまり：描き起こしアート */
+.art-hidamari{position:relative;min-height:300px;background:linear-gradient(170deg,#bfe8c9,#8fd4a6 42%,#f6c6d6 100%)}
+.art-hidamari .scene{position:absolute;inset:0;overflow:hidden}
+.art-hidamari .sun{position:absolute;top:12%;right:16%;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle,#fff,#ffe9a8 60%,transparent);filter:blur(1px);opacity:.95}
+.art-hidamari .hill{position:absolute;left:-5%;right:-5%;bottom:-6%;height:46%;border-radius:50% 50% 0 0/100% 100% 0 0}
+.art-hidamari .h1{background:#7cc98f;bottom:-14%;height:52%;opacity:.95}
+.art-hidamari .h2{background:#5fb87b;bottom:-20%;height:40%;left:30%;right:-20%}
+.art-hidamari .blossom{position:absolute;width:12px;height:12px;border-radius:50% 0 50% 50%;background:#ffd0de;transform:rotate(45deg);opacity:.9;animation:fall linear infinite}
+@keyframes fall{0%{transform:translateY(-20px) rotate(45deg);opacity:0}12%{opacity:.9}100%{transform:translateY(340px) rotate(405deg);opacity:0}}
+.art-hidamari .ht{position:absolute;left:0;right:0;top:40%;text-align:center;font-family:var(--round);font-weight:900;color:#2f6b43;font-size:clamp(26px,4.6vw,44px);letter-spacing:.04em;text-shadow:0 2px 0 #fff,0 3px 10px rgba(0,0,0,.15);padding-inline:12px}
+.art-hidamari .ht small{display:block;font-size:.38em;letter-spacing:.06em;color:#4a7d57;margin-top:.5em}
+
+/* 第13灯：闇にひとつの灯 */
+.art-tou{position:relative;min-height:300px;background:radial-gradient(60% 70% at 50% 62%,rgba(226,102,47,.4),transparent 60%),linear-gradient(180deg,#0b0a12,#161019 60%,#0a0710)}
+.art-tou .num{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--disp);font-weight:900;font-size:clamp(90px,22vw,200px);letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px rgba(226,102,47,.32);opacity:.9}
+.art-tou .flame{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:26px;height:46px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 70%,#fff2c4,#ffb24d 40%,#e2662f 72%,transparent);filter:blur(.4px) drop-shadow(0 0 26px rgba(255,150,60,.85));animation:flicker 3.4s ease-in-out infinite}
+@keyframes flicker{0%,100%{transform:translate(-50%,-50%) scale(1) rotate(-1deg);opacity:.95}50%{transform:translate(-50%,-52%) scale(1.08) rotate(1deg);opacity:1}}
+.art-tou .mote{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffce8a;filter:blur(.3px);animation:rise linear infinite;opacity:.8}
+@keyframes rise{0%{transform:translateY(0);opacity:0}20%{opacity:.9}100%{transform:translateY(-120px);opacity:0}}
+
+/* スタジオ */
+.studio{background:radial-gradient(90% 120% at 100% 0%,rgba(141,124,255,.09),transparent 55%),radial-gradient(90% 120% at 0% 100%,rgba(236,191,110,.08),transparent 55%),var(--bg)}
+.studio .lead{font-weight:900;font-size:clamp(22px,4vw,36px);line-height:1.5;letter-spacing:.01em;max-width:18em;margin:0 0 10px}
+.studio .lead b{color:var(--gold-soft)}
+.studio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:48px}
+.val{background:var(--bg-2);padding:clamp(26px,3vw,36px)}
+.val .no{font-family:var(--disp);font-size:12px;letter-spacing:.2em;color:var(--gold);margin-bottom:16px}
+.val h4{font-size:19px;font-weight:700;margin:0 0 10px;letter-spacing:.02em}
+.val p{color:var(--muted);font-size:13.5px;margin:0}
+.name-note{margin-top:46px;padding:clamp(22px,3vw,30px);border:1px dashed var(--line);border-radius:16px;display:flex;flex-wrap:wrap;align-items:center;gap:22px;background:rgba(255,255,255,.015)}
+.name-note .big{font-family:var(--disp);font-weight:800;font-size:clamp(22px,4vw,34px);letter-spacing:.1em;color:var(--fg);white-space:nowrap}
+.name-note .big em{font-style:normal;color:var(--gold-soft)}
+.name-note p{margin:0;color:var(--muted);font-size:13.5px;min-width:200px;flex:1}
+
+/* ニュース */
+.news ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.news li{display:grid;grid-template-columns:130px 1fr auto;gap:18px;align-items:baseline;padding:20px 4px;border-bottom:1px solid var(--line);transition:background .2s}
+.news li:hover{background:rgba(255,255,255,.02)}
+.news .date{font-family:var(--disp);font-size:12px;letter-spacing:.14em;color:var(--gold);font-variant-numeric:tabular-nums}
+.news .txt{color:var(--fg);font-size:14.5px;min-width:0}
+.news .txt span{color:var(--muted);font-size:13px}
+.news .pin{font-family:var(--disp);font-size:10px;letter-spacing:.14em;color:var(--faint);border:1px solid var(--line);padding:4px 10px;border-radius:999px;white-space:nowrap}
+.news .pin.hot{color:var(--gold-soft);border-color:color-mix(in srgb,var(--gold) 55%,var(--line));background:rgba(236,191,110,.08)}
+
+/* 連絡・フッター */
+.contact{background:linear-gradient(180deg,transparent,rgba(236,191,110,.04))}
+.contact .box{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;padding:clamp(30px,4vw,52px);border:1px solid var(--line);border-radius:22px;background:var(--bg-2)}
+.contact h2{font-family:var(--disp);font-size:clamp(26px,5vw,46px);font-weight:800;margin-bottom:10px}
+.contact p{color:var(--muted);margin:0;max-width:44ch;font-size:14.5px}
+.mailrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:20px}
+.mail{font-family:var(--disp);letter-spacing:.06em;font-size:clamp(15px,2.4vw,20px);color:var(--gold-soft);user-select:all;word-break:break-all}
+.copy{border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);font-family:var(--body);font-size:12px;padding:8px 14px;border-radius:999px;cursor:pointer;transition:.2s}
+.copy:hover{border-color:var(--gold);color:var(--fg)}
+.links{display:flex;flex-direction:column;gap:12px;min-width:220px}
+.links a{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border:1px solid var(--line);border-radius:12px;font-size:14px;transition:.2s}
+.links a:hover{border-color:var(--c,var(--gold));transform:translateX(3px);background:rgba(255,255,255,.03)}
+.links a .ar{color:var(--c,var(--gold))}
+footer{border-top:1px solid var(--line);padding-block:38px;color:var(--faint)}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;font-size:12.5px}
+.foot .fb{display:flex;align-items:center;gap:10px;font-family:var(--disp);letter-spacing:.14em;color:var(--muted)}
+.foot .fb svg{width:18px;height:18px;color:var(--gold)}
+.brand-mark{width:28px;height:28px;flex:none;object-fit:contain}
+.fb-mark{width:20px;height:20px;flex:none;object-fit:contain}
+.hero-mark{width:clamp(96px,16vw,168px);height:auto;margin:0 0 4px;filter:drop-shadow(0 8px 30px rgba(236,191,110,.3))}
+
+/* 動き */
+.reveal{opacity:0;transform:translateY(26px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+
+/* レスポンシブ */
+@media (max-width:860px){
+  .menu{display:none}
+  .burger{display:block}
+  .work,.work.flip{grid-template-columns:1fr}
+  .work .w-art{order:0!important;min-height:200px}
+  .work.flip .w-art::after,.w-art::after{background:linear-gradient(0deg,var(--bg-2),transparent 60%)}
+  .news li{grid-template-columns:1fr auto;gap:6px 14px}
+  .news .date{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars" aria-hidden="true"></div>
+
+<!-- ナビ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="LEGENDCOG">
+      <img class="brand-mark" src="assets/logo-mark.png" alt="" aria-hidden="true">
+      <span><b>LEGEND</b><span class="cog-word">COG</span></span>
+    </a>
+    <div class="nav-right">
+      <nav class="menu" aria-label="メインメニュー">
+        <a href="#works"><span>01</span><i data-en="Works">作品</i></a>
+        <a href="#studio"><span>02</span><i data-en="Studio">スタジオ</i></a>
+        <a href="#news"><span>03</span><i data-en="News">ニュース</i></a>
+        <a class="n-cta" href="#contact" data-en="Contact">お問い合わせ</a>
+      </nav>
+      <button class="lang-btn" id="langBtn" type="button" aria-label="Language / 言語">EN</button>
+      <button class="burger" id="burger" aria-label="メニュー"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- ヒーロー -->
+<main id="top">
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <svg class="hero-gear" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    <g stroke="currentColor" stroke-width="1"><circle cx="100" cy="100" r="78"/><circle cx="100" cy="100" r="60" stroke-dasharray="2 6"/></g>
+    <g fill="currentColor"><g id="teeth"></g></g>
+    <g stroke="currentColor" stroke-width=".8" opacity=".9">
+      <path d="M100 58 L118 92 L140 100 L112 116 L100 148 L84 114 L60 100 L86 90 Z"/>
+      <circle cx="100" cy="58" r="2.4" fill="currentColor"/><circle cx="140" cy="100" r="2.4" fill="currentColor"/>
+      <circle cx="100" cy="148" r="2.4" fill="currentColor"/><circle cx="60" cy="100" r="2.4" fill="currentColor"/>
+      <circle cx="100" cy="100" r="3" fill="currentColor"/>
+    </g>
+  </svg>
+  <svg class="hero-gear inner" viewBox="0 0 200 200" fill="none" aria-hidden="true"><circle cx="100" cy="100" r="54" stroke="currentColor" stroke-width="1" stroke-dasharray="1 9"/><circle cx="100" cy="100" r="40" stroke="currentColor" stroke-width=".8"/></svg>
+  <div class="wrap hero-in">
+    <p class="eyebrow">Independent Game Studio</p>
+    <img class="hero-mark" src="assets/logo-mark.png" alt="LEGENDCOG">
+    <h1>LEGENDCOG</h1>
+    <p class="tag" data-en="This is where <b>legends are built.</b>">伝説は、ここで<b>組み上がる。</b></p>
+    <p class="sub" data-en="A small independent studio. We don't chase genres — we assemble the <b>core of fun</b>, one piece at a time. From a constellation card battler to a gentle island life, to a 3D RPG that lights the dark: three worlds, forged at once.">少人数のインディースタジオ。ジャンルにとらわれず、<b>遊びの核</b>をひとつずつ組み上げています。星をめぐるカードバトルから、やさしい島ぐらし、そして闇を照らす3DRPGまで――いま3つの世界を同時に鍛えています。</p>
+    <div class="chips">
+      <a class="chip" href="#stella" style="--c:var(--stella)"><span class="dot"></span>SIDERA VEIL<span class="st">LIVE</span></a>
+      <a class="chip" href="#hidamari" style="--c:var(--hidamari)"><span class="dot"></span><i data-en="HIDAMARI">ひだまり島ぐらし</i><span class="st">DEV</span></a>
+      <a class="chip" href="#tou" style="--c:var(--tou)"><span class="dot"></span><i data-en="THE 13TH LIGHT">第13灯</i><span class="st">DEV</span></a>
+    </div>
+  </div>
+  <a class="scrollcue" href="#works" aria-label="scroll">SCROLL</a>
+</section>
+
+<!-- 作品 -->
+<section class="band" id="works">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Our Works</p>
+      <h2 data-en="Three worlds, <em>in the making.</em>">いま、3つの<em>世界</em>を。</h2>
+      <p class="k" data-en="One is live, two are still being built. Each one chases a feel you can only get from that single game.">ひとつは配信中、ふたつは制作の途中。どれも「そのゲームでしか味わえない手ざわり」を探しています。</p>
+    </div>
+    <div class="works">
+
+      <!-- SIDERA VEIL -->
+      <article class="work reveal" id="stella" style="--c:var(--stella)">
+        <div class="w-art"><img src="assets/stella.jpg" alt="SIDERA VEIL のキーアート" loading="lazy" width="1200" height="821"></div>
+        <div class="w-body">
+          <div class="w-tags"><span class="badge live" style="--c:var(--stella-2)" data-en="LIVE">配信中</span><span class="genre" data-en="Constellation Card Battle / PWA">星座カードバトル / PWA</span></div>
+          <h3>SIDERA VEIL</h3>
+          <p class="rom">シデラ・ヴェール</p>
+          <p data-en="Summon 212 constellation characters, build your deck, and battle online. Spells and items, board-reading depth — a real card battler you can play right in your browser.">212種の星座キャラクターを召喚し、デッキを組んでオンライン対戦。呪文と道具を織り交ぜ、盤面を読み切る本格カードバトル。ブラウザでそのまま遊べます。</p>
+          <div class="w-meta">
+            <div><div class="lab">Platform</div><div class="val" data-en="Web / Mobile (PWA)">Web / スマホ（PWA）</div></div>
+            <div><div class="lab">Mode</div><div class="val" data-en="Solo &amp; Online">CPU戦・オンライン対戦</div></div>
+            <div><div class="lab">Price</div><div class="val" data-en="Free to play">基本無料</div></div>
+          </div>
+          <span class="w-cta ghost" style="--c:var(--stella-2);cursor:default"><i data-en="Link coming soon">リンク準備中</i> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        </div>
+      </article>
+
+      <!-- ひだまり島ぐらし -->
+      <article class="work flip reveal" id="hidamari" style="--c:var(--hidamari)">
+        <div class="w-art art-hidamari" aria-label="ひだまり島ぐらしの世界">
+          <div class="scene" id="hidaScene"><span class="sun"></span><span class="hill h1"></span><span class="hill h2"></span></div>
+          <div class="ht">ひだまり島ぐらし<small>くらすほど、じぶんも島も育っていく。</small></div>
+        </div>
+        <div class="w-body">
+          <div class="w-tags"><span class="badge" style="--c:var(--hidamari)" data-en="IN DEV">開発中</span><span class="genre" data-en="Cozy Island-Life Sim">ほのぼの島ぐらしシム</span></div>
+          <h3>ひだまり島ぐらし</h3>
+          <p class="rom">HIDAMARI ISLAND LIFE</p>
+          <p data-en="Catch bugs, fish, grow flowers, craft tools. The slower you live, the more both you and the island grow — a gentle island-life simulation.">虫をとり、魚を釣り、花を育て、道具をつくる。のんびり暮らすほど、自分も島も少しずつ育っていく――ゆるやかな時間の島ぐらしシミュレーション。</p>
+          <div class="w-meta">
+            <div><div class="lab">Platform</div><div class="val">Web / PC</div></div>
+            <div><div class="lab">Play</div><div class="val" data-en="Collect · Fish · Farm · Craft">採集・釣り・栽培・クラフト</div></div>
+            <div><div class="lab">Status</div><div class="val" data-en="Demo available">試遊版 公開中</div></div>
+          </div>
+          <span class="w-cta ghost" style="--c:var(--hidamari);cursor:default"><i data-en="Link coming soon">リンク準備中</i> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        </div>
+      </article>
+
+      <!-- 第13灯 -->
+      <article class="work reveal" id="tou" style="--c:var(--tou)">
+        <div class="w-art art-tou" aria-label="第13灯のティザー"><div class="num">XIII</div><span class="flame"></span><div class="scene" id="touScene"></div></div>
+        <div class="w-body">
+          <div class="w-tags"><span class="badge" style="--c:var(--tou)" data-en="IN DEV">開発中</span><span class="genre" data-en="3D Action RPG">3D アクションRPG</span></div>
+          <h3>第13灯</h3>
+          <p class="rom">THE 13TH LIGHT</p>
+          <p data-en="Twelve fading lights, and the last one. Travel a world sunk in darkness and rekindle the lights, one by one — a 3D action RPG. The biggest world LEGENDCOG has taken on.">消えゆく12の灯、そして最後のひとつ。闇に沈んだ世界をめぐり、灯をともし直していく3DのアクションRPG。LEGENDCOG が挑む、いちばん大きな世界です。</p>
+          <div class="w-meta">
+            <div><div class="lab">Genre</div><div class="val" data-en="3D Action RPG">3D アクションRPG</div></div>
+            <div><div class="lab">Status</div><div class="val" data-en="In production">制作中</div></div>
+            <div><div class="lab">Reveal</div><div class="val" data-en="Stay tuned">続報をお待ちください</div></div>
+          </div>
+          <span class="w-cta ghost" style="--c:var(--tou);cursor:default">Coming Soon <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- スタジオ -->
+<section class="band studio" id="studio">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">The Studio</p>
+      <h2 data-en="Small studio, <em>sharp edges.</em>">小さく、<em>とがって</em>いく。</h2>
+    </div>
+    <p class="lead reveal" data-en="Craft over scale.<br>Because we're small,<br>we can take one <b>&ldquo;this is fun&rdquo;</b><br>and build it, straight and true.">大きさより、<b>手ざわり</b>。<br>少人数だからこそ、<br>ひとつの「おもしろい」を<br>まっすぐ組み上げる。</p>
+    <div class="studio-grid reveal">
+      <div class="val"><div class="no">01</div><h4 data-en="No genre lock-in">ジャンルにとらわれない</h4><p data-en="Card battler, island life, 3D RPG. Instead of churning out lookalikes, we build each in the form that fits it best.">カードバトル、島ぐらし、3DRPG。似た作品を量産するのではなく、その都度「いちばん合う形」でつくります。</p></div>
+      <div class="val"><div class="no">02</div><h4 data-en="We make all of it">自分たちで、全部</h4><p data-en="Design, code, art, sound, live ops — end to end, by a small team. So intent carries all the way to the details.">企画・プログラム・絵・音・運用まで、少人数で一気通貫。だから細部まで意思が通ります。</p></div>
+      <div class="val"><div class="no">03</div><h4 data-en="Honest, built to last">長く遊べる誠実さ</h4><p data-en="Straight dealing with payments and data. Safety and playability come before flash.">課金やデータの扱いは正直に。安全と遊びやすさを、派手さより先に置きます。</p></div>
+    </div>
+    <div class="name-note reveal">
+      <div class="big"><em>LEGEND</em> × <em>COG</em></div>
+      <p data-en="A legend is born from <b style=&quot;color:var(--fg)&quot;>cogs</b> that mesh, one by one. Assemble small mechanisms with care, and set a world in motion that stays with you — that's the promise in our name."><b style="color:var(--fg)">伝説（LEGEND）</b>は、ひとつずつ噛み合う<b style="color:var(--fg)">歯車（COG）</b>から生まれる。小さな仕掛けを丁寧に組み上げて、記憶に残る世界を動かす――それが社名に込めた約束です。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ニュース -->
+<section class="band news" id="news">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">News</p>
+      <h2 data-en="Latest <em>News</em>">最新の<em>ニュース</em></h2>
+    </div>
+    <ol class="reveal">
+      <li>
+        <span class="date">2026.10.14</span>
+        <span class="txt"><b data-en="Official website launched.">公式サイトを開設しました。</b> <span data-en="This is the home of LEGENDCOG. Nice to meet you.">LEGENDCOG の入り口です。はじめまして。</span></span>
+        <span class="pin hot" data-en="New">お知らせ</span>
+      </li>
+      <li>
+        <span class="date">2026.10</span>
+        <span class="txt"><b>SIDERA VEIL</b> <span data-en="— ongoing updates: friends, push notifications, and more.">アップデートを継続中。フレンド機能・スマホ通知などを追加。</span></span>
+        <span class="pin" data-en="LIVE">配信中</span>
+      </li>
+      <li>
+        <span class="date" data-en="2026">2026</span>
+        <span class="txt"><b data-en="HIDAMARI ISLAND LIFE">ひだまり島ぐらし</b> <span data-en="— demo now playable in your browser.">試遊版を公開。ブラウザから遊んで試せます。</span></span>
+        <span class="pin" data-en="IN DEV">開発中</span>
+      </li>
+      <li>
+        <span class="date" data-en="In dev">制作中</span>
+        <span class="txt"><b data-en="THE 13TH LIGHT">第13灯</b> <span data-en="— a 3D action RPG in development. Stay tuned.">3DアクションRPGを開発中。続報をお待ちください。</span></span>
+        <span class="pin">New Title</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 連絡 -->
+<section class="band contact" id="contact">
+  <div class="wrap">
+    <div class="box reveal">
+      <div style="min-width:min(100%,320px)">
+        <p class="eyebrow">Contact</p>
+        <h2 data-en="Let's talk.">おはなし、しましょう。</h2>
+        <p data-en="Feedback, bug reports, press and business inquiries — reach us here. Thoughts on each game also come through the in-game contact form.">ご意見・不具合のご連絡・取材やお仕事のご相談はこちらへ。各作品のご感想は、ゲーム内の「お問い合わせ」からも届きます。</p>
+        <!-- ▼ メールアドレスは、公開ドメイン確定後にここを書き換えてください ▼ -->
+        <div class="mailrow"><span class="mail" id="mail">legendcogstudio@gmail.com</span><button class="copy" id="copyMail" type="button" data-en="Copy">コピー</button></div>
+      </div>
+      <div class="links">
+        <span data-en="Links to each title are coming soon." style="color:var(--faint);font-size:13px;align-self:center">各作品へのリンクは近日公開します。</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span class="fb"><img class="fb-mark" src="assets/logo-mark.png" alt="" aria-hidden="true">LEGENDCOG</span>
+    <span>© 2026 LEGENDCOG — Independent Game Studio. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  // 言語切替（日本語 ⇄ 英語）。初回に data-ja を保存し、data-en と入れ替える。
+  var langEls=document.querySelectorAll('[data-en]');
+  langEls.forEach(function(el){ el.setAttribute('data-ja', el.innerHTML); });
+  var langBtn=document.getElementById('langBtn');
+  function setLang(l){
+    document.documentElement.lang = (l==='en')?'en':'ja';
+    langEls.forEach(function(el){ el.innerHTML = (l==='en') ? el.getAttribute('data-en') : el.getAttribute('data-ja'); });
+    langBtn.textContent = (l==='en') ? '日本語' : 'EN';
+    try{ localStorage.setItem('lcog-lang', l); }catch(e){}
+  }
+  var saved='ja'; try{ saved=localStorage.getItem('lcog-lang')||'ja'; }catch(e){}
+  setLang(saved);
+  langBtn.addEventListener('click', function(){ setLang(document.documentElement.lang==='en' ? 'ja' : 'en'); });
+
+  // 星空
+  try{ var sky=document.getElementById('stars'),h='';
+    for(var i=0;i<70;i++){h+='<i style="left:'+(Math.random()*100)+'%;top:'+(Math.random()*100)+'%;width:'+(Math.random()*1.6+1).toFixed(1)+'px;height:'+(Math.random()*1.6+1).toFixed(1)+'px;animation-duration:'+(Math.random()*4+2).toFixed(1)+'s;animation-delay:'+(Math.random()*4).toFixed(1)+'s"></i>';}
+    sky.innerHTML=h; }catch(e){}
+  // 桜（ひだまり）
+  try{ var hs=document.getElementById('hidaScene'),bh='';
+    for(var j=0;j<10;j++){bh+='<span class="blossom" style="left:'+(Math.random()*100)+'%;animation-duration:'+(Math.random()*4+5).toFixed(1)+'s;animation-delay:'+(Math.random()*5).toFixed(1)+'s"></span>';}
+    hs.insertAdjacentHTML('beforeend',bh); }catch(e){}
+  // 火の粉（第13灯）
+  try{ var ts=document.getElementById('touScene'),tm='';
+    for(var k=0;k<14;k++){tm+='<span class="mote" style="left:'+(42+Math.random()*16)+'%;top:'+(58+Math.random()*8)+'%;animation-duration:'+(Math.random()*3+3).toFixed(1)+'s;animation-delay:'+(Math.random()*4).toFixed(1)+'s"></span>';}
+    ts.insertAdjacentHTML('beforeend',tm); }catch(e){}
+  // 歯車の歯
+  try{ var g=document.getElementById('teeth'),tp='';
+    for(var t=0;t<12;t++){var a=t*30*Math.PI/180,cx=100+Math.cos(a)*78,cy=100+Math.sin(a)*78;
+      tp+='<rect x="'+(cx-3).toFixed(1)+'" y="'+(cy-3).toFixed(1)+'" width="6" height="6" transform="rotate('+(t*30)+' '+cx.toFixed(1)+' '+cy.toFixed(1)+')"/>';}
+    g.innerHTML=tp; }catch(e){}
+  // ナビ地色
+  var nav=document.getElementById('nav');
+  var onScroll=function(){ nav.classList.toggle('solid', window.scrollY>40); };
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+  // モバイル：メニューボタン → 作品へ
+  document.getElementById('burger').addEventListener('click',function(){ document.getElementById('works').scrollIntoView({behavior:'smooth'}); });
+  // スクロール進入
+  try{ var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion:reduce)').matches){ els.forEach(function(el){el.classList.add('in');}); }
+    else{ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+      els.forEach(function(el){io.observe(el);});
+      setTimeout(function(){els.forEach(function(el){el.classList.add('in');});},1600); }
+  }catch(e){var a=document.querySelectorAll('.reveal');for(var m=0;m<a.length;m++)a[m].classList.add('in');}
+  // メールのコピー
+  try{ var cp=document.getElementById('copyMail');
+    cp.addEventListener('click',function(){
+      var mail=document.getElementById('mail').textContent.trim();
+      var done=function(){var o=cp.innerHTML;cp.textContent=(document.documentElement.lang==='en')?'Copied':'コピーしました';setTimeout(function(){cp.innerHTML=o;},1600);};
+      function select(){try{var r=document.createRange();r.selectNodeContents(document.getElementById('mail'));var s=getSelection();s.removeAllRanges();s.addRange(r);}catch(e){}done();}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(mail).then(done).catch(select);}else{select();}
+    }); }catch(e){}
+})();
+</script>
+</body>
+</html>
