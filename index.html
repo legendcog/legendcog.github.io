@@ -225,6 +225,34 @@ footer{border-top:1px solid var(--line);padding-block:38px;color:var(--faint)}
 .fb-mark{width:20px;height:20px;flex:none;object-fit:contain}
 .hero-mark{width:clamp(80px,11vw,124px);height:auto;margin:0 auto 14px;filter:drop-shadow(0 10px 34px rgba(236,191,110,.34))}
 
+/* セクション番号（エディトリアルな大きな通し番号） */
+.sec-head{position:relative}
+.sec-no{position:absolute;top:-.4em;right:0;z-index:0;pointer-events:none;user-select:none;
+  font-family:var(--disp);font-weight:800;font-size:clamp(54px,11vw,128px);line-height:.8;letter-spacing:.02em;
+  color:transparent;-webkit-text-stroke:1px rgba(236,191,110,.16)}
+.sec-head>:not(.sec-no){position:relative;z-index:1}
+
+/* バンドの区切り（細いグラデーション線） */
+.band + .band,#works{border-top:1px solid transparent;border-image:linear-gradient(90deg,transparent,var(--line),transparent) 1}
+
+/* 作品：シネマティック強化 */
+.work{isolation:isolate}
+.work:hover{box-shadow:0 30px 72px -32px color-mix(in srgb,var(--c) 85%,transparent)}
+.w-art{min-height:340px}
+.w-art::after{opacity:.94}
+.w-no{display:block;font-family:var(--disp);font-weight:800;font-size:clamp(30px,4vw,46px);line-height:1;letter-spacing:.05em;margin:0 0 12px;
+  color:transparent;-webkit-text-stroke:1.2px color-mix(in srgb,var(--c) 68%,transparent)}
+.w-body h3{font-weight:800;letter-spacing:.06em}
+
+/* スタジオ：価値の強調 */
+.val{transition:background .25s}
+.val:hover{background:var(--bg-3)}
+.val .no{font-size:13.5px;color:var(--gold-soft)}
+.val h4{font-size:20px}
+
+/* ニュース：ホバー */
+.news li:hover .txt{color:var(--gold-soft)}
+
 /* 動き */
 .reveal{opacity:0;transform:translateY(26px)}
 .reveal.in{opacity:1;transform:none;transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
@@ -302,6 +330,7 @@ footer{border-top:1px solid var(--line);padding-block:38px;color:var(--faint)}
 <section class="band" id="works">
   <div class="wrap">
     <div class="sec-head reveal">
+      <span class="sec-no">01</span>
       <p class="eyebrow">Our Works</p>
       <h2 data-en="Three worlds, <em>in the making.</em>">いま、3つの<em>世界</em>を。</h2>
       <p class="k" data-en="One is live, two are still being built. Each one chases a feel you can only get from that single game.">ひとつは配信中、ふたつは制作の途中。どれも「そのゲームでしか味わえない手ざわり」を探しています。</p>
@@ -312,6 +341,7 @@ footer{border-top:1px solid var(--line);padding-block:38px;color:var(--faint)}
       <article class="work reveal" id="stella" style="--c:var(--stella)">
         <div class="w-art"><img src="assets/stella.jpg" alt="SIDERA VEIL のキーアート" loading="lazy" width="1200" height="821"></div>
         <div class="w-body">
+          <span class="w-no">01</span>
           <div class="w-tags"><span class="badge live" style="--c:var(--stella-2)" data-en="LIVE">配信中</span><span class="genre" data-en="Constellation Card Battle / PWA">星座カードバトル / PWA</span></div>
           <h3>SIDERA VEIL</h3>
           <p class="rom">シデラ・ヴェール</p>
@@ -332,6 +362,7 @@ footer{border-top:1px solid var(--line);padding-block:38px;color:var(--faint)}
           <div class="ht">ひだまり島ぐらし<small>くらすほど、じぶんも島も育っていく。</small></div>
         </div>
         <div class="w-body">
+          <span class="w-no">02</span>
           <div class="w-tags"><span class="badge" style="--c:var(--hidamari)" data-en="IN DEV">開発中</span><span class="genre" data-en="Cozy Island-Life Sim">ほのぼの島ぐらしシム</span></div>
           <h3>ひだまり島ぐらし</h3>
           <p class="rom">HIDAMARI ISLAND LIFE</p>
@@ -349,6 +380,7 @@ footer{border-top:1px solid var(--line);padding-block:38px;color:var(--faint)}
       <article class="work reveal" id="tou" style="--c:var(--tou)">
         <div class="w-art art-tou" aria-label="第13灯のティザー"><div class="num">XIII</div><span class="flame"></span><div class="scene" id="touScene"></div></div>
         <div class="w-body">
+          <span class="w-no">03</span>
           <div class="w-tags"><span class="badge" style="--c:var(--tou)" data-en="IN DEV">開発中</span><span class="genre" data-en="3D Action RPG">3D アクションRPG</span></div>
           <h3>第13灯</h3>
           <p class="rom">THE 13TH LIGHT</p>
@@ -370,6 +402,7 @@ footer{border-top:1px solid var(--line);padding-block:38px;color:var(--faint)}
 <section class="band studio" id="studio">
   <div class="wrap">
     <div class="sec-head reveal">
+      <span class="sec-no">02</span>
       <p class="eyebrow">The Studio</p>
       <h2 data-en="Small studio, <em>sharp edges.</em>">小さく、<em>とがって</em>いく。</h2>
     </div>
@@ -390,6 +423,7 @@ footer{border-top:1px solid var(--line);padding-block:38px;color:var(--faint)}
 <section class="band news" id="news">
   <div class="wrap">
     <div class="sec-head reveal">
+      <span class="sec-no">03</span>
       <p class="eyebrow">News</p>
       <h2 data-en="Latest <em>News</em>">最新の<em>ニュース</em></h2>
     </div>
