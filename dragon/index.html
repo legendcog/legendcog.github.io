@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>空飛ぶ竜と冒険者 — LEGENDCOG</title>
+<meta name="description" content="2d6のダイス判定で進むテキストRPG『空飛ぶ竜と冒険者』。通し約8時間、本編だけで約28万字。終わりはひとつではない。Steam（Windows）で2027年3月2日発売予定、体験版あり。LEGENDCOG 制作。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LEGENDCOG">
+<meta property="og:title" content="空飛ぶ竜と冒険者 — 2d6を振る、約8時間の物語">
+<meta property="og:description" content="2d6のダイス判定で進むテキストRPG。通し約8時間、本編だけで約28万字。選んだことは、静かに数えられている。Steam で2027年3月2日発売予定。">
+<meta property="og:url" content="https://legendcog.com/dragon/">
+<meta property="og:image" content="https://legendcog.com/assets/dragon/capsule.jpg">
+<meta property="og:image:width" content="1232">
+<meta property="og:image:height" content="706">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="空飛ぶ竜と冒険者 — 2d6を振る、約8時間の物語">
+<meta name="twitter:description" content="2d6のダイス判定で進むテキストRPG。通し約8時間、本編だけで約28万字。終わりはひとつではない。">
+<meta name="twitter:image" content="https://legendcog.com/assets/dragon/capsule.jpg">
+<meta name="theme-color" content="#0b0a0f">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* ──────────────────────────────────────────────────────────────
+   空飛ぶ竜と冒険者 — 紹介ページ（LEGENDCOG 公式サイトの1ページ）
+   文章は Steam 向けに用意した紹介文（体験版で遊べる範囲まで。ネタバレなし）を流用。
+   本体の配布・購入はここでは行わない。Steam のストアページ公開後にリンクを足す。
+   ────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme: dark;
+  --bg:#0b0a0f; --bg-2:#131118; --bg-3:#1b1823;
+  --fg:#efe9df; --muted:#a79f91; --faint:#6f685d;
+  --line:rgba(239,233,223,.12);
+  --ember:#e8a24c; --ember-soft:#f5cf96; --sky:#8fd0ea;
+  --disp:"Cinzel",serif;
+  --serif:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+  --maxw:980px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;line-height:1.25;text-wrap:balance}
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(18px,5vw,48px)}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--disp);font-weight:600;letter-spacing:.4em;text-transform:uppercase;font-size:clamp(10.5px,1.4vw,12.5px);color:var(--ember);margin:0}
+.eyebrow::before{content:"";width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--ember));flex:none}
+
+/* ナビ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:linear-gradient(to bottom,rgba(11,10,15,.92),rgba(11,10,15,.5) 70%,transparent);backdrop-filter:blur(8px)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;letter-spacing:.14em;font-size:15px}
+.brand img{width:24px;height:24px;object-fit:contain}
+.brand b em{font-style:normal;color:var(--ember-soft)}
+.back{font-size:13px;color:var(--muted);letter-spacing:.06em;border:1px solid var(--line);border-radius:999px;padding:8px 16px;transition:.2s}
+.back:hover{color:var(--fg);border-color:var(--ember)}
+
+/* ヒーロー：字なしの横長絵の上に題名ロゴ */
+.hero{position:relative;min-height:clamp(420px,62vh,640px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,10,15,.35),rgba(11,10,15,.15) 40%,var(--bg) 100%)}
+.hero-in{padding:120px 0 36px;width:100%}
+.hero .logo{width:min(560px,80vw);height:auto;margin-bottom:18px;filter:drop-shadow(0 8px 28px rgba(0,0,0,.6))}
+.hero .copy{font-family:var(--serif);font-weight:700;font-size:clamp(18px,3.4vw,27px);letter-spacing:.04em;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.7);max-width:26em}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.tag{font-family:var(--disp);font-size:10.5px;letter-spacing:.16em;padding:6px 13px;border-radius:999px;border:1px solid rgba(245,207,150,.5);color:var(--ember-soft);background:rgba(11,10,15,.55)}
+.tag.sky{border-color:rgba(143,208,234,.5);color:var(--sky)}
+
+/* 本文 */
+section{padding-block:clamp(44px,7vw,72px)}
+section + section{border-top:1px solid var(--line)}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:clamp(22px,4vw,34px)}
+.sec-head h2{font-family:var(--serif);font-weight:800;font-size:clamp(22px,4vw,32px);letter-spacing:.04em}
+.lead{font-family:var(--serif);font-size:clamp(15.5px,2.1vw,18px);line-height:2.1;color:var(--fg);max-width:40em}
+.lead p{margin:0 0 1.2em}
+.lead q{quotes:"「" "」";color:var(--ember-soft)}
+.prose p{margin:0 0 1.1em;color:var(--fg);max-width:42em}
+.prose .note{color:var(--muted);font-size:14px}
+.formula{font-family:var(--serif);font-weight:800;font-size:clamp(17px,3vw,24px);letter-spacing:.05em;color:var(--ember-soft);margin:0 0 18px;padding:16px 20px;border:1px solid var(--line);border-left:3px solid var(--ember);background:var(--bg-2);border-radius:0 12px 12px 0}
+.plays{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.play{background:var(--bg-2);padding:clamp(20px,3vw,28px)}
+.play h3{font-size:17px;font-weight:700;margin-bottom:8px;letter-spacing:.02em}
+.play h3 small{display:block;font-family:var(--disp);font-size:10px;letter-spacing:.2em;color:var(--ember);margin-bottom:6px}
+.play p{margin:0;color:var(--muted);font-size:13.5px}
+.play b{color:var(--fg)}
+
+/* 画面写真 */
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-2);transition:transform .3s,border-color .3s}
+.shot:hover{transform:translateY(-3px);border-color:rgba(232,162,76,.6)}
+.shot img{aspect-ratio:16/9;width:100%;object-fit:cover}
+.shot figcaption{font-size:12.5px;color:var(--muted);padding:9px 12px;letter-spacing:.06em}
+.shot figcaption b{font-family:var(--disp);font-size:10px;letter-spacing:.2em;color:var(--ember);margin-right:8px}
+
+/* 収録 */
+.spec{width:100%;border-collapse:collapse;font-size:14.5px;max-width:640px}
+.spec th,.spec td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.spec th{width:32%;color:var(--muted);font-weight:500}
+.spec td b{color:var(--ember-soft)}
+
+/* 発売 */
+.release{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:clamp(24px,4vw,40px);border:1px solid var(--line);border-radius:18px;background:linear-gradient(120deg,var(--bg-2),rgba(232,162,76,.06))}
+.release .date{font-family:var(--disp);font-weight:800;font-size:clamp(24px,5vw,40px);letter-spacing:.06em;color:var(--ember-soft);line-height:1.1}
+.release .date small{display:block;font-size:11px;letter-spacing:.3em;color:var(--ember);margin-bottom:8px}
+.release p{margin:10px 0 0;color:var(--muted);font-size:14px;max-width:46ch}
+.soon{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:999px;border:1px solid rgba(245,207,150,.55);color:var(--ember-soft);font-weight:700;font-size:14px;letter-spacing:.04em;white-space:nowrap;cursor:default}
+.soon svg{width:16px;height:16px}
+
+footer{border-top:1px solid var(--line);padding-block:32px;color:var(--faint);font-size:12.5px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
+.foot a{color:var(--muted)}
+.foot a:hover{color:var(--fg)}
+@media (max-width:640px){.release{grid-template-columns:1fr}.hero-in{padding-top:96px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="../" aria-label="LEGENDCOG"><img src="../assets/logo-mark.png" alt="" aria-hidden="true"><b>LEGEND<em>COG</em></b></a>
+  <a class="back" href="../#works">← 作品一覧へ</a>
+</div></header>
+
+<main>
+<section class="hero" style="padding:0">
+  <img class="bg" src="../assets/dragon/hero.jpg" alt="" width="1920" height="620">
+  <div class="wrap hero-in">
+    <p class="eyebrow">Text RPG · Steam · 2027</p>
+    <img class="logo" src="../assets/dragon/logo.png" alt="空飛ぶ竜と冒険者" width="1280" height="285" style="margin-top:14px">
+    <p class="copy">2d6 を振る、約8時間の物語。<br>選んだことは、静かに数えられている。</p>
+    <div class="tags">
+      <span class="tag">2d6 ダイス判定</span><span class="tag">本編 約28万字</span><span class="tag">通し 約8時間</span><span class="tag sky">体験版 約1時間</span><span class="tag sky">Windows / Steam</span>
+    </div>
+  </div>
+</section>
+
+<section id="story"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">はじまり</p><h2>古い地図が一枚。「空飛ぶ竜」の伝承は、本物かもしれない。</h2></div>
+  <div class="lead">
+    <p>故郷を出て、荷馬車に揺られ、歩き続けて──<br>あなたはようやく片田舎のヒナタ町へ着いた。駆け出しの冒険者である。</p>
+    <p>坂を上がりきると、看板が目の高さに来る。<br><q>冒険者ギルド　日輪の翼 ── 依頼と酒と、少しの無茶</q><br>「無茶」の字だけが、他より深く彫ってあった。</p>
+    <p>登録を済ませたその夜、ギルドは半分酒場になる。見習い魔女のルゥが息を切らして現れ、卓の半分を占める古い地図を広げた。描かれているのは森で、真ん中に四角がひとつ。線はどれも薄いのに、四角の縁だけが、なぞられすぎて濃い。</p>
+    <p><q>『空飛ぶ竜』の伝承、知ってる？　風車の森の遺跡に眠ってるって言われてる</q></p>
+    <p>本物かどうかは分からない。古物商の口車かもしれない。それでも朝になれば、あなたは街道へ出ている。</p>
+    <p>──そして、ときどき遠い低い唸りが聞こえる。荷馬車の親父も、ルゥも、「風車の軸だ」と言う。油が切れるとああ鳴るのだ、と。あなたはその音を、いつのまにか数えはじめている。</p>
+  </div>
+</div></section>
+
+<section id="play"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">遊びかた</p><h2>卓上のRPGの、いちばん手に馴染んだ形を、そのまま画面に。</h2></div>
+  <p class="formula">2d6（六面ダイス2個）＋ 能力修正 ＋ クラスレベル ≧ 目標値</p>
+  <div class="plays">
+    <div class="play"><h3><small>01</small>自分の体を作る</h3><p>種族<b>6</b>・クラス<b>11</b>。育ちの表を振り、生い立ちを引き、経験点を払って技能と能力値を伸ばす。主要技能を積むか、補助で広く取るかは自由。</p></div>
+    <div class="play"><h3><small>02</small>判定の前に、構えを選ぶ</h3><p>慎重に行く（<b>残り火</b>を1使って目標値−2）か、賭けに出る（目標値+2、通れば残り火が1返る）か、そのまま挑むか。残り火は休んでも戻らない。慎重を重ねれば、いつかは賭けるしかなくなる。</p></div>
+    <div class="play"><h3><small>03</small>戦う</h3><p>手札から一手を選ぶ戦闘。魔物<b>24</b>種。会心・消耗点・防護・回避、そして倒れれば<b>傷跡</b>（10種）と<b>変質</b>（9種）が体に残る。</p></div>
+    <div class="play"><h3><small>04</small>稼ぐ</h3><p>章ごとに貼り替わる依頼掲示板。全<b>48</b>本（うち3話構成の続き物が4筋）。一度果たした依頼は戻らず、懐が満ちれば礼金も落ちる。無限に稼げる場所は用意していない。</p></div>
+  </div>
+</div></section>
+
+<section id="ending"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">終わりは、ひとつではない</p><h2>この作品は、遊び手の勝ち負けを採点しない。</h2></div>
+  <div class="prose">
+    <p>数えているのは、あなたが選んだこと、選ばなかったこと、そして間に合わなかったことである。</p>
+    <p>何を数えられているのかは、遊んでいるうちに分かる。最後の場面は、その積み重ねの上に立っている。</p>
+  </div>
+</div></section>
+
+<section id="shots"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">画面</p><h2>遊び手が見る絵と、同じもの。</h2></div>
+  <div class="shots">
+    <figure class="shot" style="margin:0"><img src="../assets/dragon/shot2.jpg" alt="物語の画面" loading="lazy" width="1280" height="720"><figcaption><b>01</b>物語</figcaption></figure>
+    <figure class="shot" style="margin:0"><img src="../assets/dragon/shot3.jpg" alt="判定の画面" loading="lazy" width="1280" height="720"><figcaption><b>02</b>判定</figcaption></figure>
+    <figure class="shot" style="margin:0"><img src="../assets/dragon/shot4.jpg" alt="キャラクター作成の画面" loading="lazy" width="1280" height="720"><figcaption><b>03</b>キャラクター作成</figcaption></figure>
+    <figure class="shot" style="margin:0"><img src="../assets/dragon/shot5.jpg" alt="戦闘の画面" loading="lazy" width="1280" height="720"><figcaption><b>04</b>戦闘</figcaption></figure>
+    <figure class="shot" style="margin:0"><img src="../assets/dragon/shot6.jpg" alt="道具屋の画面" loading="lazy" width="1280" height="720"><figcaption><b>05</b>道具屋</figcaption></figure>
+    <figure class="shot" style="margin:0"><img src="../assets/dragon/shot7.jpg" alt="遊び方の手引きの画面" loading="lazy" width="1280" height="720"><figcaption><b>06</b>手引き</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="spec"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">収録</p><h2>数と、体験版の中に実在する文だけで組んである。</h2></div>
+  <table class="spec">
+    <tr><th>台本</th><td><b>70 本</b>（本編だけで 283,439 字。画面に出た本文の実測）</td></tr>
+    <tr><th>通し</th><td><b>約8時間</b>（寄り道を除く。文字送りの速さは三段から選べる）</td></tr>
+    <tr><th>立ち絵／背景</th><td>81 枚 ／ 97 枚</td></tr>
+    <tr><th>魔物／依頼</th><td>24 種 ／ 48 本</td></tr>
+    <tr><th>音楽</th><td>BGM 23 曲 ／ 効果音 17</td></tr>
+    <tr><th>機能</th><td>オート送り・既読スキップ（周回をまたいで残る）・バックログ・文字送りの速さ三段・全画面表示・遊び方の手引き（判定／戦い／消耗点と残り火／背負うもの／育てる）</td></tr>
+    <tr><th>セーブ</th><td>場面の区切りで自動。栞を挟める場所なら手動でも残せる</td></tr>
+    <tr><th>動作環境</th><td>Windows（64bit）。インストール不要、ダウンロードして実行するだけ</td></tr>
+  </table>
+</div></section>
+
+<section id="release"><div class="wrap">
+  <div class="release">
+    <div>
+      <div class="date"><small>Release</small>2027.03.02</div>
+      <p>Steam（Windows）で発売予定。約1時間の<b>体験版</b>を用意しています。文章の呼吸と判定の手触りを確かめてから決めてほしい。</p>
+      <p>Steam のストアページは準備中です。公開しだい、ここにリンクを載せます。</p>
+    </div>
+    <span class="soon">Steam — Coming Soon <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap foot">
+  <span><a href="../">LEGENDCOG</a> — Independent Game Studio</span>
+  <span>© 2026 LEGENDCOG. All rights reserved.</span>
+</div></footer>
+
+</body>
+</html>
