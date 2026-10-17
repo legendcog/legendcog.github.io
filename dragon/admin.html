@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>空飛ぶ竜と冒険者 運営</title>
+<!-- 運営用の管理画面。紹介ページ（legendcog.com/dragon/）のアクセス数と、体験版のダウンロード数を見る。
+     数は SIDERA VEIL のサーバー（sideraveil.onrender.com の /api/admin/site。server/sitestats.py）が持つ。
+     パスワードはそのサーバーの環境変数 ADMIN_TOKEN。この端末のタブを閉じるまで sessionStorage に覚える。
+     GitHub のリリースでのダウンロード数は、GitHub が公開している数をそのまま読む -->
+<style>
+  :root{
+    --bg:#f4efe6;--panel:#fffcf6;--panel-2:#f5eee0;--line:#e3d8c2;--line-2:#cdbd9c;
+    --text:#2f2a22;--sub:#6e6555;--faint:#a0957f;
+    --ember:#c9792a;--ember-d:#a85f18;--sky:#3f8fb0;--warn:#d9573f;--rad:14px;
+  }
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+    --bg:#0b0a0f;--panel:#131118;--panel-2:#1b1823;--line:#2b2733;--line-2:#3d3846;--text:#efe9df;--sub:#a79f91;--faint:#6f685d;--ember:#e8a24c;--ember-d:#f5cf96;--sky:#8fd0ea}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);line-height:1.65;font-family:system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",sans-serif;-webkit-font-smoothing:antialiased}
+  input,button{font:inherit}
+  input{background:var(--panel);color:var(--text);border:1px solid var(--line-2);border-radius:10px;padding:9px 12px}
+  input:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 3px rgba(201,121,42,.2)}
+  button{background:var(--ember);color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:600;cursor:pointer}
+  button:hover{filter:brightness(1.06)}
+  button.sub{background:transparent;color:var(--sub);border:1px solid var(--line-2);font-weight:500}
+  header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 16px;background:var(--panel);border-bottom:1px solid var(--line)}
+  header h1{margin:0 auto 0 0;font-size:18px;color:var(--ember-d)}
+  header h1 small{font-size:12px;color:var(--sub);margin-left:6px}
+  header input{width:min(260px,60vw)}
+  main{max-width:1000px;margin:0 auto;padding:16px}
+  .msg{color:var(--sub);font-size:14px;margin:6px 0}
+  .msg.err{color:var(--warn)}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}
+  .tabs button{background:var(--panel);color:var(--sub);border:1px solid var(--line-2)}
+  .tabs button.on{background:var(--ember);color:#fff;border-color:var(--ember)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--rad);padding:14px 16px;margin:0 0 12px}
+  h2{font-size:16px;margin:0 0 8px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .stat{background:var(--panel-2);border-radius:12px;padding:10px 12px}
+  .stat b{display:block;font-size:24px;color:var(--ember-d);font-variant-numeric:tabular-nums}
+  .stat.gh b{color:var(--sky)}
+  .stat span{font-size:12px;color:var(--sub)}
+  table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;color:var(--sub);font-weight:600}
+  td.num,th.num{text-align:right}
+  tr.today td{color:var(--ember-d);font-weight:600}
+  td.zero{color:var(--faint)}
+  .mono{font-family:ui-monospace,Consolas,monospace;font-size:13px}
+  .scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+<header>
+  <h1>空飛ぶ竜と冒険者 <small>運営</small></h1>
+  <input id="token" type="password" placeholder="運営者のパスワード" autocomplete="current-password">
+  <button id="login">表示</button>
+  <button id="reload" class="sub">更新</button>
+</header>
+<main>
+  <p class="msg" id="status">パスワードを入れて「表示」を押してください。（サーバーが眠っているときは、起きるまで1分ほどかかります）</p>
+  <div class="tabs" id="tabs" hidden>
+    <button data-t="stats" class="on">状況</button><button data-t="days">日ごと</button><button data-t="files">体験版</button>
+  </div>
+
+  <section class="pane" id="pane-stats" hidden>
+    <div class="card"><h2>これまでの合計</h2><div class="stats" id="statTotal"></div></div>
+    <div class="card"><h2>今日（日本時間）</h2><div class="stats" id="statToday"></div></div>
+    <div class="card"><h2>この7日間</h2><div class="stats" id="statWeek"></div>
+      <p class="msg">「表示された回数」は紹介ページが開かれた回数、「訪れた人」は同じ人を1日1回として数えた人数です。「体験版ボタン」は紹介ページのボタンが押された回数、「GitHub でのダウンロード」は実際にファイルが送られた回数です（途中でやめた分や、ほかの場所に貼られたリンクからの分も入ります）。</p>
+      <p class="msg">自分の端末を数えないようにするには、その端末で一度、次のアドレスを開いてください（戻すときは最後を 0 にします）。<br><span class="mono">https://legendcog.com/dragon/?nocount=1</span></p>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-days" hidden>
+    <div class="card">
+      <h2>日ごと（日本時間・新しい順）</h2>
+      <div class="scroll"><table><thead><tr><th>日付</th><th class="num">表示された回数</th><th class="num">訪れた人</th><th class="num">体験版ボタン</th></tr></thead><tbody id="dayList"></tbody></table></div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-files" hidden>
+    <div class="card">
+      <h2>体験版の版ごとのダウンロード数（GitHub）</h2>
+      <p class="msg" id="fmsg" style="margin-top:0"></p>
+      <div class="scroll"><table><thead><tr><th>ファイル</th><th>リリース</th><th>公開日</th><th class="num">ダウンロード</th></tr></thead><tbody id="fileList"></tbody></table></div>
+    </div>
+  </section>
+</main>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const KEY = 'dragon-admin';
+  const API = (() => { try { return localStorage.getItem('dragon-stats-api') || 'https://sideraveil.onrender.com'; } catch (e) { return 'https://sideraveil.onrender.com'; } })();
+  const REPO = 'legendcog/legendcog.github.io';        // 体験版を置いている GitHub のリポジトリ（リリース）
+  const IS_TRIAL = a => /trial/i.test(a.name);         // 体験版のファイルだけ数える
+  let token = '', tab = 'stats', data = null, gh = null;
+  try { token = sessionStorage.getItem(KEY) || ''; } catch (e) {}
+  $('#token').value = token;
+  const num = n => Number(n || 0).toLocaleString('ja-JP');
+  const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const k in attrs) { if (k === 'text') e.textContent = attrs[k]; else e.setAttribute(k, attrs[k]); } kids.flat().forEach(k => k != null && e.append(k)); return e; };
+  const status = (t, err) => { $('#status').textContent = t; $('#status').className = 'msg' + (err ? ' err' : ''); };
+
+  // ---- サーバーから数を読む（眠っていれば起きるまで、何度か読み直す） ----
+  async function api() {
+    const t0 = Date.now();
+    for (;;) {
+      try {
+        const r = await fetch(`${API}/api/admin/site?page=dragon`, { cache: 'no-store', headers: { 'X-Admin': token } });
+        const j = await r.json().catch(() => null);
+        if (j) return j;
+        if (r.status < 500) return { ok: false, err: '表示できませんでした' };
+      } catch (e) { /* 眠っている・つながらない */ }
+      if (Date.now() - t0 > 90000) return { ok: false, err: 'つながりませんでした' };
+      status(`サーバーを起こしています…（${Math.round((Date.now() - t0) / 1000)}秒）`);
+      await new Promise(s => setTimeout(s, 2500));
+    }
+  }
+  async function github() {
+    try {
+      const r = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`, { cache: 'no-store' });
+      if (!r.ok) throw new Error(r.status);
+      const items = [];
+      for (const rel of await r.json()) for (const a of (rel.assets || []).filter(IS_TRIAL)) items.push({ name: a.name, tag: rel.tag_name, at: (rel.published_at || '').slice(0, 10), n: a.download_count });
+      return { ok: true, items, total: items.reduce((s, i) => s + i.n, 0) };
+    } catch (e) { return { ok: false }; }
+  }
+
+  // ---- ログイン ----
+  async function login() {
+    token = $('#token').value.trim(); if (!token) { status('パスワードを入れてください', true); return; }
+    status('つないでいます…');
+    const [j, g] = await Promise.all([api(), github()]);
+    if (!j.ok) { status(j.err || '表示できませんでした', true); $('#tabs').hidden = true; document.querySelectorAll('.pane').forEach(p => p.hidden = true); return; }
+    try { sessionStorage.setItem(KEY, token); } catch (e) {}
+    data = j; gh = g;
+    const d = new Date(), p = n => String(n).padStart(2, '0');
+    status(`表示しました（${d.getFullYear()}/${p(d.getMonth() + 1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())} 時点）`);
+    $('#tabs').hidden = false; render(); show(tab);
+  }
+  function show(t) {
+    tab = t; document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+    document.querySelectorAll('.pane').forEach(p => p.hidden = p.id !== 'pane-' + t);
+  }
+  document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => show(b.dataset.t));
+  $('#login').onclick = login; $('#token').onkeydown = e => { if (e.key === 'Enter') login(); };
+  $('#reload').onclick = login;
+
+  // ---- 表示 ----
+  function grid(box, rows) {
+    box.innerHTML = '';
+    for (const [v, l, cls] of rows) box.append(el('div', { class: 'stat' + (cls ? ' ' + cls : '') }, el('b', { text: v }), el('span', { text: l })));
+  }
+  function render() {
+    const t = data.total, days = data.days, today = days.find(d => d.day === data.today) || { view: 0, visit: 0, dl: 0 };
+    const since = new Date(Date.parse(data.today + 'T00:00:00+09:00') - 6 * 86400000 + 9 * 3600000).toISOString().slice(0, 10);
+    const week = days.filter(d => d.day >= since).reduce((s, d) => ({ view: s.view + d.view, visit: s.visit + d.visit, dl: s.dl + d.dl }), { view: 0, visit: 0, dl: 0 });
+    grid($('#statTotal'), [[num(t.view), '表示された回数'], [num(t.visit), '訪れた人'], [num(t.dl), '体験版ボタン'], [gh.ok ? num(gh.total) : '—', gh.ok ? 'GitHub でのダウンロード' : 'GitHub から読めませんでした', 'gh']]);
+    grid($('#statToday'), [[num(today.view), '表示された回数'], [num(today.visit), '訪れた人'], [num(today.dl), '体験版ボタン']]);
+    grid($('#statWeek'), [[num(week.view), '表示された回数'], [num(week.visit), '訪れた人'], [num(week.dl), '体験版ボタン']]);
+
+    const dl = $('#dayList'); dl.innerHTML = '';
+    if (!days.length) dl.append(el('tr', {}, el('td', { colspan: 4, class: 'msg', text: 'まだ記録がありません' })));
+    for (const d of days.slice(0, 180)) dl.append(el('tr', d.day === data.today ? { class: 'today' } : {},
+      el('td', { text: d.day + (d.day === data.today ? '（今日）' : '') }),
+      ...['view', 'visit', 'dl'].map(k => el('td', { class: 'num' + (d[k] ? '' : ' zero'), text: num(d[k]) }))));
+
+    const fl = $('#fileList'); fl.innerHTML = '';
+    $('#fmsg').textContent = gh.ok ? `合計 ${num(gh.total)} 回` : 'GitHub から読めませんでした。少し待ってから「更新」を押してください。';
+    if (gh.ok && !gh.items.length) fl.append(el('tr', {}, el('td', { colspan: 4, class: 'msg', text: 'まだリリースに体験版がありません' })));
+    if (gh.ok) for (const f of gh.items) fl.append(el('tr', {}, el('td', { class: 'mono', text: f.name }), el('td', { class: 'mono', text: f.tag }), el('td', { text: f.at }), el('td', { class: 'num', text: num(f.n) })));
+  }
+
+  if (token) login();
+})();
+</script>
+</body>
+</html>
