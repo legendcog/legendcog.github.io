@@ -28,7 +28,9 @@
 /* ──────────────────────────────────────────────────────────────
    空飛ぶ竜と冒険者 — 紹介ページ（LEGENDCOG 公式サイトの1ページ）
    文章は Steam 向けに用意した紹介文（体験版で遊べる範囲まで。ネタバレなし）を流用。
-   本体の配布・購入はここでは行わない。Steam のストアページ公開後にリンクを足す。
+   体験版だけここから配る（ファイルは GitHub のリリースに置く。100MB を超えるのでサイトには置けない）。
+   本体の購入は Steam のストアページ公開後にリンクを足す。
+   表示とボタンの回数は SIDERA VEIL のサーバーが数える（server/sitestats.py。運営画面は /admin/dragon）。
    ────────────────────────────────────────────────────────────── */
 :root{
   color-scheme: dark;
@@ -111,11 +113,21 @@ section + section{border-top:1px solid var(--line)}
 .soon{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:999px;border:1px solid rgba(245,207,150,.55);color:var(--ember-soft);font-weight:700;font-size:14px;letter-spacing:.04em;white-space:nowrap;cursor:default}
 .soon svg{width:16px;height:16px}
 
+/* 体験版 */
+.trial{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 28px;margin-bottom:18px;padding:clamp(22px,3.5vw,32px);border:1px solid rgba(143,208,234,.28);border-radius:18px;background:linear-gradient(120deg,rgba(143,208,234,.07),var(--bg-2))}
+.trial h3{font-family:var(--serif);font-weight:800;font-size:clamp(18px,3vw,22px);letter-spacing:.04em;margin-bottom:6px}
+.trial p{margin:0;color:var(--muted);font-size:13.5px;max-width:44ch}
+.dl{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:999px;background:var(--ember);color:#1a1206;font-weight:700;font-size:15px;letter-spacing:.04em;white-space:nowrap;box-shadow:0 8px 26px rgba(232,162,76,.25);transition:transform .2s,filter .2s}
+.dl:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.dl:focus-visible{outline:2px solid var(--ember-soft);outline-offset:3px}
+.dl svg{width:18px;height:18px}
+.dl small{font-weight:500;font-size:12px;opacity:.75}
+
 footer{border-top:1px solid var(--line);padding-block:32px;color:var(--faint);font-size:12.5px}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center}
 .foot a{color:var(--muted)}
 .foot a:hover{color:var(--fg)}
-@media (max-width:640px){.release{grid-template-columns:1fr}.hero-in{padding-top:96px}}
+@media (max-width:640px){.release{grid-template-columns:1fr}.hero-in{padding-top:96px}.dl{width:100%;justify-content:center;flex-wrap:wrap;gap:4px 10px;padding:14px 18px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -192,11 +204,21 @@ footer{border-top:1px solid var(--line);padding-block:32px;color:var(--faint);fo
     <tr><th>音楽</th><td>BGM 23 曲 ／ 効果音 17</td></tr>
     <tr><th>機能</th><td>オート送り・既読スキップ（周回をまたいで残る）・バックログ・文字送りの速さ三段・全画面表示・遊び方の手引き（判定／戦い／消耗点と残り火／背負うもの／育てる）</td></tr>
     <tr><th>セーブ</th><td>場面の区切りで自動。栞を挟める場所なら手動でも残せる</td></tr>
-    <tr><th>動作環境</th><td>Windows（64bit）。インストール不要、ダウンロードして実行するだけ</td></tr>
+    <tr><th>動作環境</th><td>Windows（64bit）。インストール不要、ダウンロードして展開し、実行するだけ</td></tr>
   </table>
 </div></section>
 
 <section id="release"><div class="wrap">
+  <div class="trial" id="trial">
+    <div>
+      <h3>体験版（約1時間）</h3>
+      <p>Windows（64bit）用・v0.967。zip を展開し、中の「空飛ぶ竜と冒険者_v0.967_体験版.exe」を開くだけで遊べます。初めて開くときに Windows の確認が出たら「詳細情報」→「実行」を選んでください。</p>
+    </div>
+    <a class="dl" id="dlTrial" href="https://github.com/legendcog/legendcog.github.io/releases/download/dragon-trial-v0.967/SoraTobuRyu_Trial_v0.967.zip" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>
+      体験版をダウンロード <small>zip・約200MB</small>
+    </a>
+  </div>
   <div class="release">
     <div>
       <div class="date"><small>Release</small>2027.03.02</div>
@@ -212,6 +234,32 @@ footer{border-top:1px solid var(--line);padding-block:32px;color:var(--faint);fo
   <span><a href="../">LEGENDCOG</a> — Independent Game Studio</span>
   <span>© 2026 LEGENDCOG. All rights reserved.</span>
 </div></footer>
+
+<script>
+// 表示とダウンロードボタンの回数を数える（SIDERA VEIL のサーバーへ。IP アドレスや端末の情報は保存しない）。
+// 運営の端末は ?nocount=1 を一度開くと数えない（?nocount=0 で戻す）。
+(function () {
+  'use strict';
+  var API = 'https://sideraveil.onrender.com/api/site/hit';
+  var store = function (k, v) { try { if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { return null; } };
+  var m = /[?&]nocount=([01])/.exec(location.search);
+  if (m) store('lc-nocount', m[1] === '1' ? '1' : null);
+  if (store('lc-nocount') === '1') return;
+  function send(kind, first) {
+    var body = JSON.stringify({ page: 'dragon', kind: kind, first: !!first });
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(API, new Blob([body], { type: 'text/plain' }))) return;
+    } catch (e) { /* 下で送り直す */ }
+    try { fetch(API, { method: 'POST', body: body, mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' } }); } catch (e) { /* 数え損ねてもページはそのまま */ }
+  }
+  var day = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);   // 日本時間の日付
+  var first = store('lc-dragon-day') !== day;
+  store('lc-dragon-day', day);
+  send('view', first);
+  var btn = document.getElementById('dlTrial');
+  if (btn) btn.addEventListener('click', function () { send('dl'); });
+})();
+</script>
 
 </body>
 </html>
