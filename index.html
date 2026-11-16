@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>LEGENDCOG</title>
-<meta name="description" content="LEGENDCOG（レジェンドコグ）公式サイト。魔法の対戦『魔法大戦』、実際の時間で育てる育成RPG『てのひら系譜』、文章で遊ぶRPG『蒸気の街の技工師』、ダイスで進むテキストRPG『空飛ぶ竜と冒険者』、星座カードバトル『SIDERA VEIL』、島ぐらしシム『ひだまり島ぐらし』、3DRPG『第13灯』を制作するインディーゲームスタジオ。">
+<meta name="description" content="LEGENDCOG（レジェンドコグ）公式サイト。魔法の対戦『魔法大戦』、実際の時間で育てる育成RPG『てのひら系譜』、文章で遊ぶRPG『蒸気の街の技工師』、学園ミステリー『十七時の残響』、ダイスで進むテキストRPG『空飛ぶ竜と冒険者』、星座カードバトル『SIDERA VEIL』、島ぐらしシム『ひだまり島ぐらし』、3DRPG『第13灯』を制作するインディーゲームスタジオ。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="LEGENDCOG">
 <meta property="og:title" content="LEGENDCOG — Independent Game Studio">
-<meta property="og:description" content="魔法の対戦、実際の時間で育てる育成RPG、文章で遊ぶRPG、ダイスで進むテキストRPG、星座カードバトル、島ぐらし、3DRPG――7つの世界を手がけるインディーゲームスタジオ。伝説は、ここで組み上がる。">
+<meta property="og:description" content="魔法の対戦、実際の時間で育てる育成RPG、文章で遊ぶRPG、ダイスで進むテキストRPG、星座カードバトル、島ぐらし、学園ミステリー、3DRPG――8つの世界を手がけるインディーゲームスタジオ。伝説は、ここで組み上がる。">
 <meta property="og:url" content="https://legendcog.com/">
 <meta property="og:image" content="https://legendcog.com/assets/ogp.png?v=2">
 <meta property="og:image:width" content="1200">
@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="LEGENDCOG — Independent Game Studio">
-<meta name="twitter:description" content="魔法の対戦、実際の時間で育てる育成RPG、文章で遊ぶRPG、ダイスで進むテキストRPG、星座カードバトル、島ぐらし、3DRPG――7つの世界を手がけるインディーゲームスタジオ。">
+<meta name="twitter:description" content="魔法の対戦、実際の時間で育てる育成RPG、文章で遊ぶRPG、ダイスで進むテキストRPG、星座カードバトル、島ぐらし、学園ミステリー、3DRPG――8つの世界を手がけるインディーゲームスタジオ。">
 <meta name="twitter:image" content="https://legendcog.com/assets/ogp.png?v=2">
 <meta name="theme-color" content="#07080e">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
@@ -139,7 +139,7 @@ p{margin:0}
 .ctrl svg{width:16px;height:16px}
 .count{font-family:var(--disp);font-size:13px;letter-spacing:.14em;color:var(--muted);margin-left:8px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .count b{color:#fff;font-size:17px}
-.tabs{flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:10px;min-width:0}
+.tabs{flex:1;display:grid;grid-template-columns:repeat(8,1fr);gap:10px;min-width:0}
 .tab{all:unset;cursor:pointer;display:block;padding:12px 2px 6px;position:relative;min-width:0;opacity:.55;transition:opacity .25s}
 .tab:hover,.tab[aria-selected="true"]{opacity:1}
 .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -341,7 +341,7 @@ footer{border-top:1px solid var(--line);padding-block:36px;color:var(--faint)}
       <div class="sh">
         <div class="rv">
           <div class="en">Titles</div>
-          <h2 data-en="Seven worlds, in the making.">いま、7つの世界を。</h2>
+          <h2 data-en="Eight worlds, in the making.">いま、8つの世界を。</h2>
           <p class="k" data-en="Some you can play today, some are on their way. Each one chases a feel you can only get from that single game.">いま遊べるものも、これから届くものも。どれも「そのゲームでしか味わえない手ざわり」を探しています。</p>
         </div>
         <div class="filters rv" id="filters" aria-label="作品をしぼり込む">
@@ -432,6 +432,13 @@ var TITLES = [
    desc:'強化語・属性・形を一語ずつ唱えて呪文を組み、相手の詠唱を読んで打ち勝つ。塔に待つ八人の魔導士に挑む、魔法の対戦。',
    descEn:'Build spells one word at a time — boosts, element, form — read your rival\'s chant, and win with the last word. Eight mages await in the tower.',
    plat:['スマホ','ブラウザ','無料'], platEn:['Mobile','Browser','Free'], cta:'続報をお待ちください', ctaEn:'Stay tuned'},
+  {id:'zankyo', c:'#ff7a3c', isNew:true, grp:'play', kind:'bg', bg:'assets/works/h-zankyo.webp', pos:'50% 40%', mpos:'66% 40%', card:'assets/works/c-zankyo.webp',
+   name:'十七時の残響', nameEn:'AN ECHO AT SEVENTEEN', rom:'JUSHICHIJI NO ZANKYO',
+   st:'配信中', stEn:'LIVE', live:true, genre:'学園ミステリーアドベンチャー', genreEn:'School mystery adventure',
+   catch:'17時30分、彼女のピアノはたしかに鳴っていた。', catchEn:'At 5:30 p.m., her piano was definitely playing.',
+   desc:'文化祭の前日、台風の雨に閉ざされた校舎。警察が着くまでの二時間で、証言と証拠を結び、事件の真相を追う推理アドベンチャー。',
+   descEn:'The day before the school festival, a typhoon seals off the campus. Two hours until the police arrive — link testimony and evidence to find the truth.',
+   plat:['スマホ','PC','ブラウザ','無料'], platEn:['Mobile','PC','Browser','Free'], href:'zankyo/', cta:'いますぐ遊ぶ', ctaEn:'Play now'},
   {id:'keifu', c:'#f0b45a', isNew:true, grp:'play', kind:'fig', bgcss:'keifu-bg', fig:'assets/works/f-keifu.webp', ar:'571/1000', mpos:'50% 30%', card:'assets/works/c-keifu.webp', cpos:'50% 30%',
    name:'てのひら系譜', nameEn:'TENOHIRA KEIFU', rom:'TENOHIRA KEIFU',
    st:'体験版配信中', stEn:'DEMO AVAILABLE', live:true, genre:'実際の時間で育てる、育成RPG', genreEn:'A real-time life RPG',
@@ -476,6 +483,7 @@ var TITLES = [
    plat:['3D','アクションRPG'], platEn:['3D','Action RPG'], cta:'続報をお待ちください', ctaEn:'Stay tuned'}
 ];
 var NEWS = [
+  {d:'2026.11.16', cat:'work', b:'学園ミステリー「十七時の残響」を公開しました。', bEn:'AN ECHO AT SEVENTEEN, a school mystery, is now playable.', s:'ブラウザで無料で遊べます。スマホはホーム画面に追加して、アプリのように。', sEn:'Free in your browser. On phones, add it to your home screen and play it like an app.'},
   {d:'2026.11.03', cat:'work', b:'新作「魔法大戦」「てのひら系譜」を開発中。', bEn:'New titles in development: MAHOU TAISEN & TENOHIRA KEIFU.', s:'一語ずつ唱える魔法の対戦と、実際の時間で育てる育成RPG。続報をお待ちください。', sEn:'A spell-by-spell magic duel and a real-time life RPG. Stay tuned.'},
   {d:'2026.11.03', cat:'up', b:'蒸気の街の技工師、全7章を書き上げました。', bEn:'STEAM-CITY ENGINEER — all seven chapters written.', s:'紹介ページも新しい絵とともに一新。物語は68万字〜。', sEn:'The intro page has new art, too. 680,000+ characters of story.'},
   {d:'2026.11.03', cat:'info', b:'公式サイトを新しくしました。', bEn:'The official site has been redesigned.', s:'作品が7つに増えたので、作品から選びやすい形にしました。', sEn:'With seven titles now, it\'s easier to find each one.'},

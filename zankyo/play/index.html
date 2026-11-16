@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>十七時の残響</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="十七時の残響">
+<script>if('serviceWorker' in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=2.55a">
+</head>
+<body>
+<div id="app">
+  <!-- 舞台 -->
+  <div id="stage">
+    <div id="bgA" class="bg"></div>
+    <div id="bgB" class="bg"></div>
+    <div id="rain"></div>
+    <div id="chars"></div>
+    <div id="hs"></div>
+    <div id="uv"></div>
+    <div id="hsuv"></div>
+    <div id="sprite"><img id="spriteImg" alt=""></div>
+    <div id="cast"></div>
+    <div id="vignette"></div>
+  </div>
+
+  <!-- 上の帯 -->
+  <div id="hud" class="off">
+    <div id="locPlate"><span id="locSub"></span><b id="locName"></b></div>
+    <div id="clock"><b id="clockNow"></b><span id="clockLeft"></span></div>
+    <div id="objective"><i>目的</i><span id="objText"></span></div>
+    <div id="hudBtns">
+      <button id="btnUV" class="hb uvb" title="ブラックライト"><i>UV</i><span>照らす</span></button>
+      <button id="btnHint" class="hb" title="相棒に相談"><i>？</i><span>相棒</span></button>
+      <button id="btnNote" class="hb" title="捜査メモ"><i>✎</i><span>メモ</span><em id="noteNew"></em></button>
+      <button id="btnLog" class="hb" title="会話の記録"><i>≡</i><span>記録</span></button>
+      <button id="btnSet" class="hb" title="設定"><i>⚙</i><span>設定</span></button>
+    </div>
+  </div>
+  <div id="life"></div>
+
+  <!-- 行動 -->
+  <div id="actions" class="off">
+    <button id="actGather" class="act gather"><b>みんなを集める</b><span>最後の推理へ</span></button>
+    <button id="actTalk" class="act"><b>話す</b><span>TALK</span></button>
+    <button id="actPresent" class="act"><b>つきつける</b><span>PRESENT</span></button>
+    <button id="actMove" class="act"><b>移動する</b><span>MOVE</span></button>
+  </div>
+  <div id="idleTip" class="off"></div>
+
+  <!-- 会話 -->
+  <div id="dlg">
+    <div id="namePlate"><span id="nameText"></span></div>
+    <div id="dlgText"></div>
+    <div id="dlgNext">▼</div>
+    <div id="pickTip">気になる言葉を選べ</div>
+    <div id="dlgTools">
+      <button id="btnSkip">早送り</button>
+      <button id="btnDlgLog">ログ</button>
+      <button id="btnDlgSave">セーブ</button>
+    </div>
+  </div>
+  <div id="menu"></div>
+  <div id="choices"></div>
+
+  <!-- 重ねる画面 -->
+  <div id="mapOv" class="ov"></div>
+  <div id="noteOv" class="ov"></div>
+  <div id="pianoOv" class="ov"></div>
+  <div id="docOv" class="ov"></div>
+  <div id="accuseOv" class="ov"></div>
+  <div id="logOv" class="ov"></div>
+  <div id="setOv" class="ov"></div>
+  <div id="nameOv" class="ov"></div>
+  <div id="reconOv" class="ov"></div>
+  <div id="fx"></div>
+  <div id="flash"></div>
+  <div id="toast"></div>
+  <div id="saved"></div>
+
+  <!-- タイトル -->
+  <div id="title">
+    <div id="titleBg"></div>
+    <div id="titleRain"></div>
+    <div id="titleBox">
+      <div class="t-sub">SCHOOL MYSTERY ADVENTURE</div>
+      <h1><span>十七時</span><i>の</i><span>残響</span></h1>
+      <div class="t-line"></div>
+      <div id="titleBtns">
+        <button id="tNew">はじめから</button>
+        <button id="tCont">つづきから</button>
+        <button id="tEcho" hidden>もうひとつの十七時</button>
+        <button id="tSound">音：オフ</button>
+        <button id="tQuit">終了</button>
+      </div>
+      <div class="t-ver" id="tVer"></div>
+    </div>
+  </div>
+  <div id="ending" class="ov"></div>
+  <div id="quitOv"><p>ゲームを終了しました。<br>この画面（タブ）を閉じてください。</p><button id="quitBack">タイトルへもどる</button></div>
+</div>
+<script src="js/data.js?v=2.55a"></script>
+<script src="js/script.js?v=2.55a"></script>
+<script src="js/script_plus.js?v=2.55a"></script>
+<script src="js/script_plus2.js?v=2.55a"></script>
+<script src="js/script_plus3.js?v=2.55a"></script>
+<script src="js/script_plus4.js?v=2.55a"></script>
+<script src="js/script_plus5.js?v=2.55a"></script>
+<script src="js/script_plus6.js?v=2.55a"></script>
+<script src="js/waltz.js?v=2.55a"></script>
+<script src="js/audio.js?v=2.55a"></script>
+<script src="js/engine.js?v=2.55a"></script>
+<!-- スマホのブラウザで開いたときだけ：ホーム画面に追加（アプリとして保存）の案内 -->
+<style>
+#pwaTip { position: fixed; right: calc(10px + env(safe-area-inset-right)); top: calc(10px + env(safe-area-inset-top)); z-index: 9999; display: none; align-items: center; gap: 10px; width: max-content; max-width: 46vw; padding: 10px 12px 10px 16px; background: rgba(11, 16, 40, .94); border: 1px solid #ff7a3c; color: #eef0ff; font: 500 13px/1.6 "Zen Kaku Gothic New", "Yu Gothic", sans-serif; box-shadow: 0 6px 24px rgba(0, 0, 0, .5); }
+#pwaTip.on { display: flex; }
+#pwaTip b { color: #ffd76a; }
+#pwaTip button { flex: none; font: 900 13px "Zen Kaku Gothic New", sans-serif; border: 0; cursor: pointer; padding: 8px 14px; }
+#pwaTip .ok { background: #ff7a3c; color: #05070f; }
+#pwaTip .x { background: none; color: #8f97c2; padding: 8px 6px; font-size: 16px; }
+/* 縦持ちのときはゲームが右へ90度回るので、案内も同じ向きに回して、ゲームの下の辺（画面の左）に出す */
+@media (orientation: portrait) { #pwaTip { right: auto; left: calc(12px + env(safe-area-inset-left)); top: 53%; bottom: auto; transform-origin: 0 0; transform: rotate(90deg) translate(-50%, -100%); width: 46vh; max-width: 46vh; } }
+</style>
+<div id="pwaTip" role="note"><span id="pwaMsg"></span><button class="ok" id="pwaOk" hidden>保存する</button><button class="x" id="pwaX" aria-label="閉じる">×</button></div>
+<script>
+(() => {
+  const ua = navigator.userAgent || "";
+  const ios = /iPhone|iPod/.test(ua) || (/iPad|Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const android = /Android/.test(ua);
+  let app = false; try { app = matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches || navigator.standalone === true; } catch (e) {}
+  if (!(ios || android) || app || window.ZankyoApp) return;
+  let seen = 0; try { seen = +localStorage.getItem("zankyo-pwatip") || 0; } catch (e) {}
+  if (seen >= 3) return;   // 3回閉じたら、もう出さない
+  const tip = document.getElementById("pwaTip"), msg = document.getElementById("pwaMsg"), ok = document.getElementById("pwaOk");
+  msg.innerHTML = ios ? "下の<b>共有ボタン</b>から<b>「ホーム画面に追加」</b>で、アプリとして全画面で遊べます"
+                      : "右上の<b>︙</b>から<b>「ホーム画面に追加」</b>で、アプリとして全画面で遊べます";
+  let ask = null;
+  addEventListener("beforeinstallprompt", ev => { ev.preventDefault(); ask = ev; msg.innerHTML = "ホーム画面に保存すると、<b>アプリとして全画面で</b>遊べます"; ok.hidden = false; });
+  ok.addEventListener("click", async () => { if (!ask) return; ask.prompt(); try { await ask.userChoice; } catch (e) {} ask = null; tip.classList.remove("on"); });
+  document.getElementById("pwaX").addEventListener("click", () => { tip.classList.remove("on"); try { localStorage.setItem("zankyo-pwatip", seen + 1); } catch (e) {} });
+  addEventListener("appinstalled", () => tip.classList.remove("on"));
+  setTimeout(() => tip.classList.add("on"), 1200);
+  // タイトルの画面のボタン（はじめから・つづきから）を押して遊び始めたら、しまう
+  document.addEventListener("click", ev => { const b = ev.target.closest && ev.target.closest("button"); if (b && !tip.contains(b)) tip.classList.remove("on"); }, true);
+})();
+</script>
+</body>
+</html>
