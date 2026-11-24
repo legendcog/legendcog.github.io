@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>LEGENDCOG</title>
-<meta name="description" content="LEGENDCOG（レジェンドコグ）公式サイト。実際の時間で育てる育成RPG『てのひら系譜』、文章で遊ぶRPG『蒸気の街の技工師』、学園ミステリー『十七時の残響』、ダイスで進むテキストRPG『空飛ぶ竜と冒険者』、星座カードバトル『SIDERA VEIL』、島ぐらしシム『ひだまり島ぐらし』、3DRPG『第13灯』を制作するインディーゲームスタジオ。">
+<meta name="description" content="LEGENDCOG（レジェンドコグ）公式サイト。宇宙サバイバルクラフト『ASTRAL SATELLITE』、実際の時間で育てる育成RPG『てのひら系譜』、文章で遊ぶRPG『蒸気の街の技工師』、学園ミステリー『十七時の残響』、ダイスで進むテキストRPG『空飛ぶ竜と冒険者』、星座カードバトル『SIDERA VEIL』、島ぐらしシム『ひだまり島ぐらし』、3DRPG『第13灯』を制作するインディーゲームスタジオ。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="LEGENDCOG">
 <meta property="og:title" content="LEGENDCOG — Independent Game Studio">
-<meta property="og:description" content="実際の時間で育てる育成RPG、文章で遊ぶRPG、ダイスで進むテキストRPG、星座カードバトル、島ぐらし、学園ミステリー、3DRPG――7つの世界を手がけるインディーゲームスタジオ。伝説は、ここで組み上がる。">
+<meta property="og:description" content="宇宙サバイバルクラフト、実際の時間で育てる育成RPG、文章で遊ぶRPG、ダイスで進むテキストRPG、星座カードバトル、島ぐらし、学園ミステリー、3DRPG――8つの世界を手がけるインディーゲームスタジオ。伝説は、ここで組み上がる。">
 <meta property="og:url" content="https://legendcog.com/">
 <meta property="og:image" content="https://legendcog.com/assets/ogp.png?v=2">
 <meta property="og:image:width" content="1200">
@@ -16,7 +16,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="LEGENDCOG — Independent Game Studio">
-<meta name="twitter:description" content="実際の時間で育てる育成RPG、文章で遊ぶRPG、ダイスで進むテキストRPG、星座カードバトル、島ぐらし、学園ミステリー、3DRPG――7つの世界を手がけるインディーゲームスタジオ。">
+<meta name="twitter:description" content="宇宙サバイバルクラフト、実際の時間で育てる育成RPG、文章で遊ぶRPG、ダイスで進むテキストRPG、星座カードバトル、島ぐらし、学園ミステリー、3DRPG――8つの世界を手がけるインディーゲームスタジオ。">
 <meta name="twitter:image" content="https://legendcog.com/assets/ogp.png?v=2">
 <meta name="theme-color" content="#07080e">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
@@ -110,6 +110,7 @@ p{margin:0}
 .st.new{border-color:#ff6b6b;color:#fff;background:#d6453f}
 .genre{font-size:13px;letter-spacing:.1em;color:color-mix(in srgb,var(--c) 70%,#fff)}
 .s-title{font-family:var(--mincho);font-weight:800;font-size:clamp(34px,5.4vw,76px);white-space:nowrap;letter-spacing:.04em;line-height:1.1;text-shadow:0 6px 40px rgba(0,0,0,.6)}
+#sl-astral .s-title{white-space:normal}
 .s-title.lat{font-family:var(--disp);letter-spacing:.08em}
 .rom{font-family:var(--disp);font-size:12px;letter-spacing:.32em;color:var(--faint);margin-top:10px}
 .s-catch{word-break:keep-all;font-family:var(--mincho);font-weight:700;font-size:clamp(17px,2.1vw,22px);letter-spacing:.06em;margin-top:18px;color:#f3efe6}
@@ -425,6 +426,13 @@ footer{border-top:1px solid var(--line);padding-block:36px;color:var(--faint)}
 // kind：bg＝横長の絵を敷く／fig＝縦長の絵を右に額で置く／tou＝絵の代わりに灯
 // grp：play いま遊べる／soon もうすぐ／dev 開発中
 var TITLES = [
+  {id:'astral', c:'#6fc8ff', isNew:true, grp:'dev', kind:'bg', bg:'assets/works/h-astral.webp', pos:'70% 50%', mpos:'78% 50%', card:'assets/works/c-astral.webp',
+   name:'ASTRAL SATELLITE', nameEn:'ASTRAL SATELLITE', rom:'ASTRAL SATELLITE',
+   st:'開発中', stEn:'IN DEV', genre:'宇宙サバイバルクラフト', genreEn:'Space survival craft',
+   catch:'一隻の艦で、星々の奥へ。', catchEn:'One ship. Into the depths of the stars.',
+   desc:'自分の艦を手に入れて戦い、掘り、作り、建てながら、星々の奥へ渡っていく。宇宙サバイバルクラフト。',
+   descEn:'Get your own ship. Fight, mine, craft and build as you voyage deeper into the stars. A space survival craft game.',
+   plat:['スマホ','PC'], platEn:['Mobile','PC'], href:'https://astral.legendcog.com/intro', ext:true, cta:'紹介ページを見る', ctaEn:'See the intro page'},
   {id:'zankyo', c:'#ff7a3c', isNew:true, grp:'play', kind:'bg', bg:'assets/works/h-zankyo.webp', pos:'50% 40%', mpos:'66% 40%', card:'assets/works/c-zankyo.webp',
    name:'十七時の残響', nameEn:'AN ECHO AT SEVENTEEN', rom:'JUSHICHIJI NO ZANKYO',
    st:'配信中', stEn:'LIVE', live:true, genre:'学園ミステリーアドベンチャー', genreEn:'School mystery adventure',
@@ -476,6 +484,7 @@ var TITLES = [
    plat:['3D','アクションRPG'], platEn:['3D','Action RPG'], cta:'続報をお待ちください', ctaEn:'Stay tuned'}
 ];
 var NEWS = [
+  {d:'2026.11.25', cat:'work', b:'新作「ASTRAL SATELLITE」を開発中。紹介ページを公開しました。', bEn:'New title in development: ASTRAL SATELLITE. The intro page is up.', s:'自分の艦で星々の奥へ渡っていく、宇宙サバイバルクラフト。続報をお待ちください。', sEn:'A space survival craft game: take your own ship deep into the stars. Stay tuned.'},
   {d:'2026.11.16', cat:'work', b:'学園ミステリー「十七時の残響」を公開しました。', bEn:'AN ECHO AT SEVENTEEN, a school mystery, is now playable.', s:'ブラウザで無料で遊べます。スマホはホーム画面に追加して、アプリのように。', sEn:'Free in your browser. On phones, add it to your home screen and play it like an app.'},
   {d:'2026.11.03', cat:'work', b:'新作「てのひら系譜」を開発中。', bEn:'New title in development: TENOHIRA KEIFU.', s:'実際の時間で育てる育成RPG。続報をお待ちください。', sEn:'A real-time life RPG. Stay tuned.'},
   {d:'2026.11.03', cat:'up', b:'蒸気の街の技工師、全7章を書き上げました。', bEn:'STEAM-CITY ENGINEER — all seven chapters written.', s:'紹介ページも新しい絵とともに一新。物語は68万字〜。', sEn:'The intro page has new art, too. 680,000+ characters of story.'},
