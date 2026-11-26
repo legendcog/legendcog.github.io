@@ -227,6 +227,21 @@ footer .ft i { font-style: normal; color: var(--dusk); font-size: .5em; margin: 
 footer p { font-family: var(--serif); letter-spacing: .26em; color: var(--dim); margin-top: 12px; font-size: 14px; }
 footer small { display: block; margin-top: 36px; font-family: var(--en); letter-spacing: .3em; color: #5d648c; font-size: 14px; }
 
+/* 紹介動画（2026-11-27） */
+#movie { padding: clamp(80px, 11vw, 150px) 0 clamp(40px, 6vw, 80px); background: radial-gradient(900px 500px at 20% 30%, rgba(255, 122, 60, .10), transparent 70%); overflow: hidden; }
+.mv-g { display: grid; grid-template-columns: auto 1fr; gap: clamp(32px, 6vw, 90px); align-items: center; }
+.mv { position: relative; width: min(340px, 78vw); aspect-ratio: 9 / 16; border-radius: 10px; overflow: hidden; background: #000; border: 1px solid rgba(255, 122, 60, .45); box-shadow: 0 30px 80px rgba(0, 0, 0, .6), 0 0 60px rgba(255, 122, 60, .12); }
+.mv video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+.mv-play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; padding: 0; cursor: pointer; background: linear-gradient(rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, .65)); }
+.mv-play i { width: 78px; height: 78px; border-radius: 50%; display: grid; place-items: center; background: rgba(11, 16, 40, .78); border: 1px solid var(--dusk); box-shadow: 0 0 34px rgba(255, 122, 60, .45); transition: transform .2s; }
+.mv-play i::before { content: ""; margin-left: 7px; border-left: 24px solid var(--dusk); border-top: 14px solid transparent; border-bottom: 14px solid transparent; }
+.mv-play:hover i { transform: scale(1.07); }
+.mv-play:focus-visible { outline: 2px solid var(--gold); outline-offset: -4px; }
+.mv.on .mv-play { display: none; }
+.mv-t p { font-family: var(--serif); font-size: clamp(20px, 2.4vw, 28px); line-height: 2; margin: 0; word-break: keep-all; overflow-wrap: anywhere; }
+.mv-t p + p { margin-top: 1em; }
+.mv-t small { display: block; margin-top: 26px; color: var(--dim); font-size: 13px; letter-spacing: .12em; }
+@media (max-width: 860px) { .mv-g { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
 @media (max-width: 860px) {
   #nav ul { gap: 0; }
   #nav ul li:not(:last-child) { display: none; }
@@ -264,6 +279,7 @@ footer small { display: block; margin-top: 36px; font-family: var(--en); letter-
 <header id="nav">
   <a class="logo" href="#hero">十七時<b>の</b>残響</a>
   <ul>
+    <li><a class="l" href="#movie">Movie</a></li>
     <li><a class="l" href="#story">Story</a></li>
     <li><a class="l" href="#chara">Character</a></li>
     <li><a class="l" href="#system">System</a></li>
@@ -293,6 +309,25 @@ footer small { display: block; margin-top: 36px; font-family: var(--en); letter-
   AN ECHO AT SEVENTEEN <b>十七時の残響</b> WHO PLAYED THE WALTZ <b>夕凪のワルツ</b> THE NIGHT BEFORE THE FESTIVAL <b>桜霞祭 前夜</b> LISTEN TO THE END <b>最後まで、聞け</b>
   AN ECHO AT SEVENTEEN <b>十七時の残響</b> WHO PLAYED THE WALTZ <b>夕凪のワルツ</b> THE NIGHT BEFORE THE FESTIVAL <b>桜霞祭 前夜</b> LISTEN TO THE END <b>最後まで、聞け</b>
 </div></div>
+
+<!-- ================= 紹介動画（2026-11-27） ================= -->
+<section id="movie">
+  <div class="wrap">
+    <div class="sec-h rv"><span class="no">00</span><span class="en">Movie</span><span class="ja">紹介動画</span></div>
+    <div class="mv-g">
+      <div class="mv rv left">
+        <video src="img/movie.mp4?v=1" poster="img/movie-poster.webp?v=1" playsinline preload="none" width="720" height="1280" aria-label="十七時の残響の紹介動画"></video>
+        <button type="button" class="mv-play" aria-label="紹介動画を再生する"><i></i></button>
+      </div>
+      <div class="mv-t">
+        <p class="rv" style="--d:.1s">十七時、チャイムが鳴った。</p>
+        <p class="rv" style="--d:.2s">雨の校舎に閉じこめられた夜。<br>警察が着くまで、<wbr>残された時間は二時間。</p>
+        <p class="rv" style="--d:.3s">話を聞き、<wbr>現場を調べ、<br>証拠をつきつける。</p>
+        <small class="rv" style="--d:.4s">約27秒・音が出ます</small>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ================= 物語 ================= -->
 <section id="story">
@@ -517,6 +552,10 @@ const io = new IntersectionObserver((es) => es.forEach((e) => {
   if (e.target.id === "stage" && !autoT) autoT = setInterval(() => showCh((cur + 1) % CH.length), 5200);   // 人物は、さわるまで自動で入れかわる
 }), { threshold: 0.16 });
 document.querySelectorAll(".rv").forEach((e) => io.observe(e));
+// 紹介動画：大きな再生の印を押したら、ふつうの操作盤に切りかえる
+document.querySelectorAll(".mv").forEach((f) => { const v = f.querySelector("video"), b = f.querySelector(".mv-play");
+  b.addEventListener("click", () => { v.controls = true; v.play(); });
+  v.addEventListener("play", () => { f.classList.add("on"); v.controls = true; }); });
 
 /* ---------- 上の帯・進み具合・奥行き */
 const para = [...document.querySelectorAll("[data-para]")];
